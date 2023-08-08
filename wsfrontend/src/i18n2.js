@@ -1,0 +1,141 @@
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import { register } from "timeago.js";
+
+i18n.use(initReactI18next).init({
+  resources: {
+    en: {
+      translations: {
+        "Sign Up": "Sign Up",
+        "Password mismatch": "Password mismatch",
+        Username: "Username",
+        "Display Name": "Display Name",
+        Password: "Password",
+        "Password Repeat": "Password Repeat",
+        Login: "Login",
+        LOGIN: "LOGIN",
+        "Home Page": "Home Page",
+        "Share your coffee, explore the world!":
+          "Share your coffee, explore the world!",
+        Logout: "Logout",
+        Profile: "Profile",
+        "coded by": "coded by",
+        "Forget Password?": "Forget Password?",
+        Users: "Users",
+        Next: "Next",
+        Previous: "Previous",
+        "Online Users": "Online Users",
+        "Load Failure": "Load Failure",
+        "User not found!": "User not found!",
+        Edit: "Edit",
+        Save: "Save",
+        Cancel: "Cancel",
+        "Change Display Name": "Change Display Name",
+        "What's happening?": "What's happening?",
+        "My Profile": "My Profile",
+        "There are no posts": "There are no posts",
+        "Load old posts": "Load old posts",
+        Friends: "Friends",
+        Messages: "Messages",
+        Notifications: "Notifications",
+        "Verified User": "Verified User",
+        Help: "Help",
+        Settings: "Settings",
+        "There are new posts. Click here to see!":
+          "There are new posts. Click here to see!",
+        Explore: "Explore",
+        Home: "Home",
+        "Change Profile Photo": "Change Profile Photo",
+        "Delete Post": "Delete Post",
+        "Are you sure to delete Post?": "Are you sure to delete Post?",
+        "Delete Account": "Delete Account",
+        "Are you sure to delete your account?":
+          "Are you sure to delete your account?",
+          "Be Careful This is Admin": "Be Careful This is Admin",
+      },
+    },
+    tr: {
+      translations: {
+        "Sign Up": "Kayıt Ol",
+        "Password mismatch": "Aynı şifreyi giriniz",
+        Username: "Kullanıcı Adı",
+        "Display Name": "Görünen Ad",
+        Password: "Şifre",
+        "Password Repeat": "Şifreyi Tekrarlayın",
+        LOGIN: "Oturum Aç",
+        Login: "Oturum Aç",
+        "Home Page": "Ana Sayfa",
+        "Share your coffee, explore the world!":
+          "Kahvenizi paylaşın, dünyayı keşfedin!",
+        Logout: "Çıkış",
+        Profile: "Profil",
+        "coded by": "Kodlayan",
+        "Forget Password?": "Şifrenizi mi Unuttunuz?",
+        Users: "Kullanıcılar",
+        Next: "Sonraki Sayfa",
+        Previous: "Önceki Sayfa",
+        "Online Users": "Aktif Kullanıcılar",
+        "Load Failure": "Liste alınamadı!",
+        "User not found!": "Kullanıcı bulunamadı!",
+        Edit: "Profili düzenle",
+        Save: "Kaydet",
+        Cancel: "İptal",
+        "Change Display Name": "Görünür İsminizi Değiştin",
+        "What's happening?": "Neler oluyor?",
+        "My Profile": "Hesabım",
+        "There are no posts": "Hiç post bulunamadı :(",
+        "Load old posts": "Eski postları getir",
+        Friends: "Arkadaşlar",
+        Messages: "Mesajlar",
+        Notifications: "Bildirimler",
+        "Verified User": "Onaylı Kullanıcı",
+        Help: "Yardım",
+        Settings: "Ayarlar",
+        "There are new posts. Click here to see!":
+          "Yeni gönderiler var. Görmek için buraya tıklayın!",
+        Explore: "Keşfet",
+        Home: "Anasayfa",
+        "Change Profile Photo": "Profil Fotoğrafını Değiştin",
+        "Delete Post": `Post'u sil`,
+        "Are you sure to delete Post?": `Post'u silmek istediğinizden emin misiniz?`,
+        "Delete Account": "Hesabı Sil",
+        "Are you sure to delete your account?":
+          "Hesabınızı silmek istediğinizden emin misiniz?",
+        "Be Careful This is Admin": "Dikkatli Ol Bu Admin",
+      },
+    },
+  },
+  fallbackLng: "en",
+  ns: ["translations"],
+  defaultNS: "translations",
+  keySeperator: false,
+  interpolation: {
+    escapeValue: false,
+    formatSeperator: ",",
+  },
+  react: {
+    wait: true,
+  },
+});
+
+const timeagoTR = (number, index) => {
+  return [
+    ["az önce", "şimdi"],
+    ["%s saniye önce", "%s saniye içinde"],
+    ["1 dakika önce", "1 dakika içinde"],
+    ["%s dakika önce", "%s dakika içinde"],
+    ["1 saat önce", "1 saat içinde"],
+    ["%s saat önce", "%s saat içinde"],
+    ["1 gün önce", "1 gün içinde"],
+    ["%s gün önce", "%s gün içinde"],
+    ["1 hafta önce", "1 hafta içinde"],
+    ["%s hafta önce", "%s hafta içinde"],
+    ["1 ay önce", "1 ay içinde"],
+    ["%s ay önce", "%s ay içinde"],
+    ["1 yıl önce", "1 yıl içinde"],
+    ["%s yıl önce", "%s yıl içinde"],
+  ][index];
+};
+register("tr", timeagoTR);
+
+export default i18n;

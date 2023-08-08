@@ -1,0 +1,10 @@
+$primary: #818;
+
+@import '~bootstrap/scss/bootstrap.scss';
+
+.btn-delete-link{
+    color: rgb(31, 24, 31);
+}
+.btn-delete-link:hover{
+    color: $danger;
+}

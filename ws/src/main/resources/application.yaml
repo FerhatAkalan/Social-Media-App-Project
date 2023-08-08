@@ -1,0 +1,54 @@
+#file: noinspection undefined
+spring:
+  output:
+    ansi:
+      enabled: always
+  jpa:
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+        max-page-size: 100
+  profiles:
+    active:
+      - dev
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+social:
+  upload-path: picture-storage
+
+---
+spring:
+  config:
+    activate:
+      on-profile: development
+
+social:
+  upload-path: storage-production
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/devdbsocial
+    username: postgres
+    password: 12345
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+social:
+  upload-path: storage-dev
