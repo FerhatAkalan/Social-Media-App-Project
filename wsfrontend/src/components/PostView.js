@@ -121,11 +121,11 @@ const PostView = (props) => {
         )}
         <hr class="text-black-50 my-1" />
         <div className="d-flex justify-content-around pb-1 py-1">
-          <i class="fa-regular fa-comment"></i>
-          <i class="fa-solid fa-retweet"></i>
-          <i class="fa-regular fa-heart"></i>
-          <i class="fa-regular fa-bookmark"></i>
-          <i class="fa-regular fa-share-from-square"></i>
+          <button className="btn btn-comment-link"><i class="fa-regular fa-comment"></i></button>
+          <button className="btn btn-retweet-link"><i class="fa-solid fa-retweet"></i></button>
+          <button className="btn btn-fav-link"><i class="fa-regular fa-heart"></i></button>
+          <button className="btn btn-bookmark-link"><i class="fa-regular fa-bookmark"></i></button>
+          <button className="btn btn-share-link"><i class="fa-regular fa-share-from-square"></i></button>
         </div>
       </div>
       <Modal

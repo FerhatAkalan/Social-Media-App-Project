@@ -62,13 +62,19 @@ const TopBar = (props) => {
           </li>
           <li className="nav-item">
             <div className="nav-link d-flex" style={{ cursor: "pointer" }}>
-              <ProfileImageWithDefault
-                image={image}
-                width="24"
-                height="24"
-                className="rounded-circle me-1"
-              />
-              <span>{displayName}</span>
+              <Link
+                to={"/users/" + username}
+                className="d-flex text-dark text-dark"
+                style={{ textDecoration: "none" }}
+              >
+                <ProfileImageWithDefault
+                  image={image}
+                  width="24"
+                  height="24"
+                  className="rounded-circle me-1"
+                />
+                <span>{displayName}</span>
+              </Link>
             </div>
           </li>
           <li className="nav-item">

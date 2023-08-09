@@ -1,10 +1,65 @@
 $primary: #818;
 
-@import '~bootstrap/scss/bootstrap.scss';
+@import "~bootstrap/scss/bootstrap.scss";
 
-.btn-delete-link{
-    color: rgb(31, 24, 31);
+.btn-delete-link {
+  color: rgb(31, 24, 31);
 }
-.btn-delete-link:hover{
-    color: $danger;
+.btn-delete-link:hover {
+  color: $danger;
+}
+.btn-comment-link {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+.btn-comment-link:hover {
+  color: $info;
+}
+.btn-fav-link {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+.btn-fav-link:hover {
+  color: $danger;
+}
+.btn-retweet-link {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+.btn-retweet-link:hover {
+  color: $success;
+}
+.btn-bookmark-link {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+.btn-bookmark-link:hover {
+  color: $secondary;
+}
+.btn-share-link {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+.btn-share-link:hover {
+  color: $primary;
 }

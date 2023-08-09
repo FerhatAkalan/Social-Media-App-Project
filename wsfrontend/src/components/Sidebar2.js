@@ -124,7 +124,7 @@ const Sidebar = () => {
                 className="list-group-item list-group-item-action"
                 style={{ cursor: "pointer" }}
               >
-                <i className="fas fa-circle-check fa-lg me-auto text-info"></i>{" "}
+                <i className="fas fa-circle-check fa-lg me-auto text-info" onClick={()=>{}}></i>{" "}
                 {t("Verified User")}
               </li>
               <li
