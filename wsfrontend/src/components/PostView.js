@@ -50,27 +50,24 @@ const PostView = (props) => {
               className="text-dark"
               style={{ textDecoration: "none" }}
             >
-              <div class="d-flex align-items-center">
-                <h6 class="d-inline me-3">
-                  <span>{displayName}</span>
-                  <span class="text-muted"> @{username}</span>
-                </h6>
-
-                {admin && (
-                  <div class="d-inline">
-                    <i class="material-icons text-secondary align-middle">
-                      shield
-                    </i>
-                  </div>
-                )}
-
-                <i class="material-icons text-info">
+              <h6 className="d-inline">
+                <span>{displayName}</span>
+                <span className="text-muted"> @{username}</span>
+                <i className="material-icons text-info align-middle ms-2">
                   verified
                 </i>
+              </h6>
 
-                <span class="mx-2"> · </span>
-                <span>{formatted}</span>
-              </div>
+              {admin && (
+                <div class="d-inline">
+                  <i class="material-icons text-secondary align-middle">
+                    shield
+                  </i>
+                </div>
+              )}
+
+              <span class="mx-2"> · </span>
+              <span>{formatted}</span>
             </Link>
           </div>
           <div class="dropdown">
