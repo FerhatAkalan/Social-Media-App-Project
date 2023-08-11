@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ProfileImageWithDefault from "./ProfileImageWithDefault";
+import VerifiedBadge from "./VerifiedBadge";
 
 const UserListItem = (props) => {
   const { user } = props;
-  const { username, displayName, image } = user;
+  const { username, displayName, image, verified,admin } = user;
 
   return (
     <Link
@@ -23,9 +24,11 @@ const UserListItem = (props) => {
         style={{
           padding: "10px",
         }}
-      >{displayName}
+      >
+        {displayName}
       </span>
       <span className="text-muted">- @{username}</span>
+      {verified && <VerifiedBadge isAdmin={admin}/>}
     </Link>
   );
 };

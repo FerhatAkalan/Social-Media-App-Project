@@ -7,14 +7,13 @@ import Input from "../components/Input";
 import {
   updateUser,
   deleteUser,
-  getVerificationRequests,
+  createVerificationRequest,
 } from "../api/apiCalls";
 import { useApiProgress } from "../shared/ApiProgress";
 import ButtonWithProgress from "../pages/ButtonWithProgress";
 import { updateSuccess, logoutSucces } from "../redux/authActions";
 import Modal from "../components/Modal";
-import { Link } from "react-router-dom";
-import VerificationRequestsPage from "../pages/VerificationRequestsPage";
+import VerifiedBadge from "./VerifiedBadge";
 
 const ProfileCard = (props) => {
   const [inEditMode, setInEditMode] = useState(false);
@@ -27,13 +26,12 @@ const ProfileCard = (props) => {
   const [user, setUser] = useState({});
   const [editable, setEditable] = useState(false);
   const [verifiedRequest, setVerifiedRequest] = useState(false);
-
   const [newImage, setNewImage] = useState();
   const [validationErrors, setValidationErrors] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  const { username, displayName, image, admin } = user;
+  const { id, username, displayName, image, admin, verified } = user;
   const isAdmin = useSelector((store) => store.admin);
 
   useEffect(() => {
@@ -121,22 +119,28 @@ const ProfileCard = (props) => {
     history.push("/");
   };
 
-  const getPage = async () => {
-    if (isAdmin) {
-      try {
-        await getVerificationRequests();
-        history.push("/verifications-request");
-      } catch (error) {
-        console.error("Error getting verification requests:", error);
-      }
-    } else {
-      console.log(
-        "User is not an admin, can't access verification requests page."
-      );
-    }
-  };
   const { displayName: displayNameError, image: imageError } = validationErrors;
 
+  const [reason, setReason] = useState("");
+  const [attachment, setAttachment] = useState("");
+
+  const handleCreateRequest = async () => {
+    try {
+      const requestData = {
+        user: {
+          id: user.id,
+        },
+        reason: reason,
+        attachment: attachment,
+      };
+
+      await createVerificationRequest(username, requestData);
+      setVerifiedRequest(false);
+      console.log("Verification request created successfully.");
+    } catch (error) {
+      console.error("Error creating verification request:", error);
+    }
+  };
   return (
     <div className="card text-center">
       <div className="card-header">
@@ -158,6 +162,7 @@ const ProfileCard = (props) => {
               <span className="text-muted">
                 <br /> @{username}
               </span>
+              {verified && <VerifiedBadge isAdmin={admin} />}
             </h3>
             {editable && (
               <>
@@ -165,7 +170,7 @@ const ProfileCard = (props) => {
                   className="btn btn-success d-inline-flex"
                   onClick={() => setInEditMode(true)}
                 >
-                  <i className="material-icons me-1">edit</i>
+                  <i class="fa-regular fa-pen-to-square me-1 mt-1"></i>
                   {t("Edit")}
                 </button>
                 <div className="pt-2">
@@ -177,45 +182,21 @@ const ProfileCard = (props) => {
                     {t("Delete Account")}
                   </button>
                 </div>
-                <div className="pt-2">
-                  <button
-                    className="btn btn-secondary d-inline-flex"
-                    onClick={() => setVerifiedRequest(true)}
-                  >
-                    <i className="material-icons me-2">verified</i>
-                    {t("Verified user request")}
-                  </button>{" "}
-                </div>
-                {admin && (
-                  <>
-                    {" "}
-                    <div className="pt-2">
-                      <button
-                        className="btn btn-info d-inline-flex"
-                        onClick={getPage}
-                      >
-                        <i className="material-icons me-2">verified</i>
-                        {t("Verified User Application")}
-                      </button>{" "}
-                    </div>
-                  </>
+                {(!verified || isAdmin) && (
+                  <div className="pt-2">
+                    <button
+                      className="btn btn-info d-inline-flex"
+                      onClick={() => setVerifiedRequest(true)}
+                    >
+                      <i className="material-icons me-2">verified</i>
+                      {t("Verified user request")}
+                    </button>{" "}
+                  </div>
                 )}
               </>
             )}
           </>
         )}
-        <h4>
-          {admin && (
-            <div class="alert alert-secondary m-2 alert-sm" role="alert">
-              {t("Be Careful This is Admin")}
-              <div className="ms-auto">
-                <i className="material-icons">shield</i>
-                <i class="fa-regular fa-id-card"></i>
-                <i className="material-icons">shield</i>
-              </div>
-            </div>
-          )}
-        </h4>
         {inEditMode && (
           <div>
             <Input
@@ -236,7 +217,7 @@ const ProfileCard = (props) => {
               <ButtonWithProgress
                 className="btn btn-primary d-inline-flex mr-2"
                 onClick={onClickSave}
-                dispabled={pendingApiCall}
+                disabled={pendingApiCall}
                 pendingApiCall={pendingApiCall}
                 text={
                   <>
@@ -256,26 +237,30 @@ const ProfileCard = (props) => {
             </div>
           </div>
         )}
-
         {verifiedRequest && (
           <div>
             <Input
               label={t("Reason to be verified")}
-              defaultValue={displayName}
+              value={reason}
+              placeholder={t(
+                "For example: I am a well-known person, I want my account verified."
+              )}
+              onChange={(event) => setReason(event.target.value)}
+              style={{ height: "100px" }}
             />
-            <Input type="file" label={t("File to be verified")} />
+            <Input
+              type="file"
+              label={t("File to be verified")}
+              onChange={(event) => setAttachment(event.target.files[0])}
+            />
             <div className="mt-2">
               <ButtonWithProgress
-                className="btn btn-primary d-inline-flex mr-2"
-                onClick={onClickSave}
-                dispabled={pendingApiCall}
+                className="btn btn-info m-1"
+                onClick={handleCreateRequest}
+                disabled={pendingApiCall}
                 pendingApiCall={pendingApiCall}
-                text={
-                  <>
-                    <i className="material-icons">save</i>
-                    {t("Save")}
-                  </>
-                }
+                icon="fa-regular fa-circle-check fa-beat me-2 mr-2"
+                text={<>{t("Send Request")}</>}
               />
               <button
                 className="btn btn-light d-inline-flex ml-1"
@@ -288,6 +273,16 @@ const ProfileCard = (props) => {
             </div>
           </div>
         )}
+        <h5>
+          {admin && (
+            <div class="alert alert-secondary d-inline-block m-2" role="alert">
+              <div className="ms-auto">
+                {t("Be Careful This is Admin")}
+                <i class="fa-regular fa-id-card m-1"></i>
+              </div>
+            </div>
+          )}
+        </h5>
       </div>
       <Modal
         visible={modalVisible}

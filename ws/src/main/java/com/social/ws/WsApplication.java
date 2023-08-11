@@ -30,7 +30,8 @@ public class WsApplication {
                 adminUser.setUsername("ferhatakalan");
                 adminUser.setDisplayName("Ferhat Akalan");
                 adminUser.setPassword("Ferhat123+");
-                adminUser.setAdmin(true); // isAdmin alanı true olarak ayarlandı
+                adminUser.setAdmin(true);
+                adminUser.setVerified(true);
                 userService.save(adminUser);
                 for (int i = 1; i <= 25; i++) {
                     User user = new User();

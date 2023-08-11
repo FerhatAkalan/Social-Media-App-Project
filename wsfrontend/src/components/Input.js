@@ -1,7 +1,7 @@
 import React from "react";
 
 const Input = (props) => {
-  const { label, error, name, onChange, type, defaultValue } = props;
+  const { label, error, name, onChange, type, defaultValue,placeholder } = props;
   let className = "form-control";
   if (type === "file") {
     className += "";
@@ -19,6 +19,7 @@ const Input = (props) => {
         onChange={onChange}
         type={type}
         defaultValue={defaultValue}
+        placeholder={placeholder}
       />
       <div className="invalid-feedback">{error}</div>
     </div>

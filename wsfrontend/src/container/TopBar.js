@@ -6,14 +6,19 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutSucces } from "../redux/authActions";
 import ProfileImageWithDefault from "../components/ProfileImageWithDefault";
+import "../assets/font.css";
+import VerifiedBadge from "../components/VerifiedBadge";
+
 const TopBar = (props) => {
   const { t } = useTranslation();
 
-  const { username, isLoggedIn, displayName, image } = useSelector((store) => ({
+  const { username, isLoggedIn, displayName, image,admin,verified } = useSelector((store) => ({
     isLoggedIn: store.isLoggedIn,
     username: store.username,
     displayName: store.displayName,
     image: store.image,
+    admin:store.admin,
+    verified: store.verified
   }));
 
   const dispatch = useDispatch();
@@ -74,22 +79,23 @@ const TopBar = (props) => {
                   className="rounded-circle me-1"
                 />
                 <span>{displayName}</span>
+                {verified && <VerifiedBadge isAdmin={admin}/>}
               </Link>
             </div>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link className="nav-link d-flex" to={"/users/" + username}>
               <i className="material-icons text-info  me-1">person</i>
               {t("My Profile")}
             </Link>
-          </li>
+          </li> */}
           <li className="nav-item" onClick={onLogoutSuccess}>
             <Link className="nav-link d-flex" to="/login">
-              <i className="material-icons text-warning me-1">logout</i>
+              <i className="material-icons text-secondary me-1">logout</i>
               {t("Logout")}
             </Link>
           </li>
-          <li className="nav-item">
+          <li className="nav-item d-flex align-items-center">
             <LanguageSelector />
           </li>
         </ul>
@@ -100,13 +106,18 @@ const TopBar = (props) => {
   return (
     <div className="shadow-sm bg-light">
       <nav className="navbar navbar-light container navbar-expand">
-        <Link className="navbar-brand" to="/">
-          <img src={logo} width="65" alt="Hoaxify logo" />
-          <a className="navbar-brand ms-2">Social Cafe </a>
-        </Link>
+        <div className="d-flex d-inline align-items-center">
+          <Link className="navbar-brand" to="/">
+            <img src={logo} width="65" alt="Hoaxify logo" />
+            <a className="navbar-brand ms-2" style={{ fontFamily: "Pacifico" }}>
+              Social Cafe{" "}
+            </a>
+          </Link>
+          
+        </div>
         <em className="navbar-text ms-auto">
-          {t("Share your coffee, explore the world!")}
-        </em>
+            {t("Share your coffee, explore the world!")}
+          </em>
         {links}
       </nav>
     </div>

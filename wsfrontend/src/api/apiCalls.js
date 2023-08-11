@@ -82,15 +82,27 @@ export const deleteUser = (username) => {
 };
 
 export const getVerificationRequests = () => {
-  return axios.get(`/api/1.0/verifications-request`);
+  return axios.get("/api/1.0/verifications/applications");
+};
+
+export const createVerificationRequest = async (username,requestData) => {
+  try {
+    const response = await axios.post(`/api/1.0/verifications/create/${username}`, requestData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const approveVerificationRequest = (requestId) => {
-  return axios.post(`/api/1.0/verifications-request/${requestId}/approve`);
+  return axios.post(`/api/1.0/verifications/${requestId}/approve`);
 };
 
 export const rejectVerificationRequest = (requestId) => {
-  return axios.post(`/api/1.0/verifications-request/${requestId}/reject`);
+  return axios.post(`/api/1.0/verifications/${requestId}/reject`);
+};
+export const unVerifyUser = (username) => {
+  return axios.post(`/api/1.0/verifications/${username}/unverify`); 
 };
 
 
@@ -107,3 +119,4 @@ export const fetchTranslationFromAPI = async (language) => {
     return {}; 
   }
 };
+

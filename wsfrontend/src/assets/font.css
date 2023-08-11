@@ -1,0 +1,13 @@
+@font-face {
+  font-family: Pacifico;
+  src: url("../assets/Pacifico-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Borel;
+  src: url("../assets/Borel-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

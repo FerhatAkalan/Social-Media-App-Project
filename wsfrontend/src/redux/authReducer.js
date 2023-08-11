@@ -6,7 +6,7 @@ const defaultState = {
   displayName: undefined,
   image: undefined,
   password: undefined,
-  isAdmin: undefined,
+  admin: undefined,
 };
 
 const authReducer = (state = { ...defaultState }, action) => {
@@ -19,6 +19,8 @@ const authReducer = (state = { ...defaultState }, action) => {
     };
   } else if (action.type === ACTIONS.UPDATE_SUCCESS) {
     return { ...state, ...action.payload };
+  }else if (action.type === ACTIONS.UPDATE_ADMIN_STATUS) {
+    return { ...state, admin: action.payload.admin };
   }
   return state;
 };

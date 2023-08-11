@@ -14,6 +14,7 @@ com\social\ws\error\NotFoundException.class
 com\social\ws\user\UniqueUsername.class
 com\social\ws\WsApplication.class
 com\social\ws\verify\VerificationRequestController.class
+com\social\ws\verify\VerificationRequestDTO.class
 com\social\ws\error\ApiError.class
 com\social\ws\file\FileAttachment.class
 com\social\ws\translation\I18nTextRepository.class

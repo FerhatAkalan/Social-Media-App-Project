@@ -31,7 +31,8 @@ public class SecurityConfiguration {
                 .requestMatchers(HttpMethod.POST, "/api/1.0/posts").authenticated()
                 .requestMatchers(HttpMethod.POST, "/api/1.0/posts-attachments").authenticated()
                 .requestMatchers(HttpMethod.POST, "/api/1.0/logout").authenticated()
-                .requestMatchers(HttpMethod.POST, "/api/1.0/verifications-request").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/1.0/verifications/applications").hasRole("ADMIN")
+                //.requestMatchers(HttpMethod.POST, "/api/1.0/verifications/applications").hasRole("ADMIN")
                 .and()
                 .authorizeHttpRequests().anyRequest().permitAll();
 

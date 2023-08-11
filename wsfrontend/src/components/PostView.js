@@ -8,12 +8,13 @@ import { deletePost } from "../api/apiCalls";
 import { useState } from "react";
 import { useApiProgress } from "../shared/ApiProgress";
 import Modal from "../components/Modal";
+import VerifiedBadge from "./VerifiedBadge";
 
 const PostView = (props) => {
   const loggedInUser = useSelector((store) => store.username);
   const { post, onDeletePost } = props;
   const { user, content, timestamp, fileAttachment, id } = post;
-  const { username, displayName, image, admin } = user;
+  const { username, displayName, image, admin, verified } = user;
   const [modalVisible, setModalVisible] = useState(false);
 
   const { i18n, t } = useTranslation();
@@ -37,13 +38,15 @@ const PostView = (props) => {
     <>
       <div className="card p-1">
         <div className="d-flex">
-          <ProfileImageWithDefault
-            Link={`/users/${username}`}
-            image={image}
-            width="32"
-            height="32"
-            className="rounded-circle m-1"
-          />
+          <Link to={`/users/${username}`}>
+            <ProfileImageWithDefault
+              Link={`/users/${username}`}
+              image={image}
+              width="32"
+              height="32"
+              className="rounded-circle m-1"
+            />
+          </Link>
           <div className="flex-fill m-auto px-2">
             <Link
               to={`/users/${username}`}
@@ -53,22 +56,12 @@ const PostView = (props) => {
               <h6 className="d-inline">
                 <span>{displayName}</span>
                 <span className="text-muted"> @{username}</span>
-                <i className="material-icons text-info align-middle ms-2">
-                  verified
-                </i>
               </h6>
-
-              {admin && (
-                <div class="d-inline">
-                  <i class="material-icons text-secondary align-middle">
-                    shield
-                  </i>
-                </div>
-              )}
-
-              <span class="mx-2"> · </span>
-              <span>{formatted}</span>
             </Link>
+           
+            {verified && <VerifiedBadge isAdmin={admin} />}
+            <span class="mx-2"> · </span>
+            <span>{formatted}</span>
           </div>
           <div class="dropdown">
             <button
@@ -107,7 +100,7 @@ const PostView = (props) => {
             {fileAttachment.fileType.startsWith("image") && (
               <img
                 className="img-fluid img-thumbnail rounded"
-                style={{ maxWidth: "100%", maxHeight: "395px" }}
+                style={{ maxWidth: "100%", maxHeight: "450px" }}
                 src={"images/attachment/" + fileAttachment.name}
                 alt={content}
               />
@@ -121,11 +114,21 @@ const PostView = (props) => {
         )}
         <hr class="text-black-50 my-1" />
         <div className="d-flex justify-content-around pb-1 py-1">
-          <button className="btn btn-comment-link"><i class="fa-regular fa-comment"></i></button>
-          <button className="btn btn-retweet-link"><i class="fa-solid fa-retweet"></i></button>
-          <button className="btn btn-fav-link"><i class="fa-regular fa-heart"></i></button>
-          <button className="btn btn-bookmark-link"><i class="fa-regular fa-bookmark"></i></button>
-          <button className="btn btn-share-link"><i class="fa-regular fa-share-from-square"></i></button>
+          <button className="btn btn-comment-link">
+            <i class="fa-regular fa-comment"></i>
+          </button>
+          <button className="btn btn-retweet-link">
+            <i class="fa-solid fa-retweet"></i>
+          </button>
+          <button className="btn btn-fav-link">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+          <button className="btn btn-bookmark-link">
+            <i class="fa-regular fa-bookmark"></i>
+          </button>
+          <button className="btn btn-share-link">
+            <i class="fa-regular fa-share-from-square"></i>
+          </button>
         </div>
       </div>
       <Modal

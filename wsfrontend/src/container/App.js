@@ -15,8 +15,9 @@ import { useSelector } from "react-redux";
 import VerificationRequestsPage from "../pages/VerificationRequestsPage";
 
 const App = () => {
-  const { isLoggedIn } = useSelector((store) => ({
+  const { isLoggedIn,admin } = useSelector((store) => ({
     isLoggedIn: store.isLoggedIn,
+    admin: store.admin,
   }));
   return (
     <div>
@@ -28,8 +29,8 @@ const App = () => {
           {!isLoggedIn && <Route path="/login" component={LoginPage} />}
           <Route path="/signup" component={UserSignupPage} />
           <Route path="/users/:username" component={UserPage} />
-          {isLoggedIn && (
-            <Route path="/verifications-request" component={VerificationRequestsPage} />
+          {isLoggedIn && admin &&(
+            <Route path="/verifications/applications" component={VerificationRequestsPage} />
           )}
           <Redirect to="/" />
         </Switch>

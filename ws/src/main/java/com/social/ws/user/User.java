@@ -2,6 +2,7 @@ package com.social.ws.user;
 
 import com.social.ws.auth.Token;
 import com.social.ws.post.Post;
+import com.social.ws.verify.VerificationRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -50,8 +51,10 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Token> tokens;
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<VerificationRequest> verificationRequests;
     private boolean isAdmin = false;
+    private boolean isVerified = false;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

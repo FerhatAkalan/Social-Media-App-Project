@@ -29,6 +29,11 @@ export const updateSuccess = ({ displayName, image }) => {
   };
 };
 
+export const updateAdminStatus = (admin) => ({
+  type: ACTIONS.UPDATE_ADMIN_STATUS,
+  payload: { admin },
+});
+
 export const loginHandler = (credentials) => {
   return async function (dispatch) {
     const response = await login(credentials);
@@ -38,6 +43,7 @@ export const loginHandler = (credentials) => {
       token: response.data.token,
     };
     dispatch(loginSuccess(authState));
+    dispatch(updateAdminStatus(response.data.user.admin));
     return response;
   };
 };

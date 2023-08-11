@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useApiProgress } from "../shared/ApiProgress";
 import Spinner from "../components/Spinner";
 import PostFeed from "../components/PostFeed";
-import Sidebar from "../components/Sidebar2";
+import Sidebar from "../components/Sidebar";
 
 const UserPage = () => {
   const [user, setUser] = useState({});
@@ -59,7 +59,7 @@ const UserPage = () => {
     <div class="container mt-3">
       <div class="row">
         <div className="col-md-2">
-          <Sidebar />
+          <Sidebar user={user}/>
         </div>
         <div className="col-md-6">
           <div className="card text-center text-primary mb-2">{t("POSTS")}</div>

@@ -117,7 +117,7 @@ const PostSubmit = () => {
                   text={t(" TalkIt")}
                   pendingApiCall={pendingApiCall}
                   disabled={pendingApiCall || pendingFileUpload}
-                  icon="fa-regular fa-paper-plane fa-beat me-2 mr-2"
+                  icon="fa-regular fa-paper-plane me-1"
                 />
                 <button
                   className="btn btn-light"
