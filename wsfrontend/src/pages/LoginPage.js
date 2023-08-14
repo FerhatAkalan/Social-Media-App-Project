@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Input from "../components/Input";
 import { useTranslation } from "react-i18next";
-import ButtonWithProgress from "./ButtonWithProgress";
+import ButtonWithProgress from '../components/ButtonWithProgress';
 import { useApiProgress } from "../shared/ApiProgress";
 import background from "../assets/2.jpg";
 import user from "../assets/vector.png";

@@ -33,6 +33,7 @@ public class WebConfiguration implements WebMvcConfigurer {
             createFolder(appConfiguration.getUploadPath());
             createFolder(appConfiguration.getProfileStorePath());
             createFolder(appConfiguration.getAttachmentStorePath());
+            createFolder(appConfiguration.getVerifyStorage());
         };
     }
 

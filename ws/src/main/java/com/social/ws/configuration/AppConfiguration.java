@@ -13,6 +13,7 @@ public class AppConfiguration {
     private String profileStorage = "profile";
 
     private String attachmentStorage = "attachment";
+    private String verifyStorage = "verify";
 
     public String getProfileStorePath() {
         return uploadPath + "/" + profileStorage;
@@ -20,6 +21,10 @@ public class AppConfiguration {
 
     public String getAttachmentStorePath() {
         return uploadPath + "/" + attachmentStorage;
+    }
+
+    public String getVerifyStorage() {
+        return uploadPath + "/" + verifyStorage;
     }
 
 }

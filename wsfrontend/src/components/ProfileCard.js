@@ -10,7 +10,7 @@ import {
   createVerificationRequest,
 } from "../api/apiCalls";
 import { useApiProgress } from "../shared/ApiProgress";
-import ButtonWithProgress from "../pages/ButtonWithProgress";
+import ButtonWithProgress from "../components/ButtonWithProgress";
 import { updateSuccess, logoutSucces } from "../redux/authActions";
 import Modal from "../components/Modal";
 import VerifiedBadge from "./VerifiedBadge";
@@ -185,7 +185,7 @@ const ProfileCard = (props) => {
                 {(!verified || isAdmin) && (
                   <div className="pt-2">
                     <button
-                      className="btn btn-info d-inline-flex"
+                      className="btn btn-primary d-inline-flex"
                       onClick={() => setVerifiedRequest(true)}
                     >
                       <i className="material-icons me-2">verified</i>
@@ -238,12 +238,12 @@ const ProfileCard = (props) => {
           </div>
         )}
         {verifiedRequest && (
-          <div>
-            <Input
-              label={t("Reason to be verified")}
+          <div className="mt-2">
+            <textarea className="form-control"
+              label={t("")}
               value={reason}
               placeholder={t(
-                "For example: I am a well-known person, I want my account verified."
+                "Reason to be verified: For example, I am a well-known person, I want my account verified."
               )}
               onChange={(event) => setReason(event.target.value)}
               style={{ height: "100px" }}
@@ -259,7 +259,7 @@ const ProfileCard = (props) => {
                 onClick={handleCreateRequest}
                 disabled={pendingApiCall}
                 pendingApiCall={pendingApiCall}
-                icon="fa-regular fa-circle-check fa-beat me-2 mr-2"
+                icon="fa-regular fa-circle-check me-2 mr-2"
                 text={<>{t("Send Request")}</>}
               />
               <button

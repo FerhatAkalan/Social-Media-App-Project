@@ -1,10 +1,9 @@
 package com.social.ws.verify;
 
-import com.social.ws.auth.AuthException;
+import com.social.ws.file.FileService;
 import com.social.ws.user.User;
 import com.social.ws.user.UserRepository;
-import com.social.ws.user.UserService;
-import com.social.ws.user.vm.UserVM;
+import com.social.ws.verify.vm.VerificationRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +13,13 @@ import java.util.List;
 public class VerificationRequestService {
     private final VerificationRequestRepository verificationRequestRepository;
     private final UserRepository userRepository;
+    private final FileService fileService;
 
     @Autowired
-    public VerificationRequestService(VerificationRequestRepository verificationRequestRepository, UserRepository userRepository) {
+    public VerificationRequestService(VerificationRequestRepository verificationRequestRepository, UserRepository userRepository, FileService fileService) {
         this.verificationRequestRepository = verificationRequestRepository;
         this.userRepository = userRepository;
+        this.fileService = fileService;
     }
 
     public List<VerificationRequest> getVerificationRequests() {

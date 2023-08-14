@@ -4,12 +4,7 @@ import UserSignupPage from "../pages/UserSignupPage";
 import HomePage from "../pages/HomePage";
 import UserPage from "../pages/UserPage";
 import Footer from "./Footer";
-import {
-  HashRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from "react-router-dom";
+import {HashRouter as Router, Route, Redirect,Switch} from "react-router-dom";
 import TopBar from "./TopBar";
 import { useSelector } from "react-redux";
 import VerificationRequestsPage from "../pages/VerificationRequestsPage";

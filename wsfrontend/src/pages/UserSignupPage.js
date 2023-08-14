@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { signup } from "../api/apiCalls";
 import Input from "../components/Input";
 import { useTranslation } from "react-i18next";
-import ButtonWithProgress from "./ButtonWithProgress";
+import ButtonWithProgress from '../components/ButtonWithProgress';
 import { useApiProgress } from "../shared/ApiProgress";
 import background from "../assets/background8.jpg";
 import { useDispatch } from "react-redux";

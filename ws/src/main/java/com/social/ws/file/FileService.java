@@ -121,4 +121,24 @@ public class FileService {
             deleteAttechmentFile(file.getName());
         }
     }
+
+    public FileAttachment saveVerificationAttachment(MultipartFile multipartFile) {
+        String fileName = generateRandomName();
+        File target = new File(appConfiguration.getVerifyStorage() + "/" + fileName);
+        String fileType = null;
+        try {
+            byte[] arr = multipartFile.getBytes();
+            OutputStream outputStream = new FileOutputStream(target);
+            outputStream.write(arr);
+            outputStream.close();
+            fileType = detectType(arr);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        FileAttachment attachment = new FileAttachment();
+        attachment.setName(fileName);
+        attachment.setDate(new Date());
+        attachment.setFileType(fileType);
+        return fileAttachmentRepository.save(attachment);
+    }
 }

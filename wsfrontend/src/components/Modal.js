@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import ButtonWithProgress from '../pages/ButtonWithProgress';
+import ButtonWithProgress from '../components/ButtonWithProgress';
 
 const Modal = props => {
   const { visible, onClickCancel, message, onClickOk, pendingApiCall, title, okButton } = props;

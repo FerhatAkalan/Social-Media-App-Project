@@ -4,7 +4,7 @@ import ProfileImageWithDefault from "./ProfileImageWithDefault";
 import { useSelector } from "react-redux";
 import { postIt, postPostAttachment } from "../api/apiCalls";
 import { useApiProgress } from "../shared/ApiProgress";
-import ButtonWithProgress from "../pages/ButtonWithProgress";
+import ButtonWithProgress from '../components/ButtonWithProgress';
 import Input from "../components/Input";
 import AutoUploadImage from "./AutoUploadImage";
 

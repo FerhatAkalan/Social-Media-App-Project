@@ -110,14 +110,21 @@ const VerificationRequestsPage = () => {
                     <td>{request.id}</td>
                     <td>{request.userId}</td>
                     <td>
-                      <Link
+                      <a
+                        href={`/#/users/${request.username}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style={{ textDecoration: "none" }}
-                        to={`/users/${request.username}`}
                       >
                         {request.username}
-                      </Link>
+                      </a>
                     </td>
-                    <td>{request.reason.length > 50 ? `${request.reason.slice(0, 30)}...` : request.reason}</td>
+
+                    <td>
+                      {request.reason.length > 30
+                        ? `${request.reason.slice(0, 30)}...`
+                        : request.reason}
+                    </td>
 
                     <td>
                       {request.attachment ? (

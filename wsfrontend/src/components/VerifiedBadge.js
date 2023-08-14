@@ -39,7 +39,7 @@ const VerifiedBadge = ({ isAdmin }) => {
                 <i className={`material-icons ${isAdmin ? 'text-dark' : 'text-info'} align-middle me-2 ${isAdmin ? 'shield' : 'verified'}`}>
                   {isAdmin ? 'shield' : 'verified'}
                 </i>
-                {isAdmin ? t("This is an admin user") : t("This is a verified user")}
+                {isAdmin ? t("Admin Verified Account") : t("Verified Account")}
               </div>
               <div className="modal-footer">
                 <button
