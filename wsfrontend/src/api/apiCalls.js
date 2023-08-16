@@ -84,15 +84,19 @@ export const deleteUser = (username) => {
 export const getVerificationRequests = () => {
   return axios.get("/api/1.0/verifications/applications");
 };
-
-export const createVerificationRequest = async (username,requestData) => {
+export const createVerificationRequest = async (username, requestData) => {
   try {
-    const response = await axios.post(`/api/1.0/verifications/create/${username}`, requestData);
+    const response = await axios.post(`/api/1.0/verifications/create/${username}`, requestData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
   } catch (error) {
     throw error;
   }
 };
+
 
 export const approveVerificationRequest = (requestId) => {
   return axios.post(`/api/1.0/verifications/${requestId}/approve`);
@@ -120,3 +124,27 @@ export const fetchTranslationFromAPI = async (language) => {
   }
 };
 
+function arrayBufferToBase64(arrayBuffer) {
+  const uint8Array = new Uint8Array(arrayBuffer);
+  let binary = '';
+  uint8Array.forEach((byte) => {
+    binary += String.fromCharCode(byte);
+  });
+  return btoa(binary);
+}
+
+export const getProtectedImage = async (filename) => {
+  try {
+    const response = await axios.get(`/images/verified/${filename}`, {
+      responseType: "arraybuffer",
+    });
+
+    if (response.status === 200 && response.data instanceof ArrayBuffer) {
+      return response; // Sadece yanıtı döndürüyoruz, veriyi ayrıca işlemeye gerek yok
+    } else {
+      throw new Error("Geçersiz yanıt verisi");
+    }
+  } catch (error) {
+    throw error;
+  }
+};

@@ -7,24 +7,70 @@ import {
   unVerifyUser,
 } from "../api/apiCalls";
 import Sidebar from "../components/Sidebar";
-import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
+import { getProtectedImage } from "../api/apiCalls";
+
 const VerificationRequestsPage = () => {
   const [verificationRequests, setVerificationRequests] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { t } = useTranslation();
-  const [selectedRequest, setSelectedRequest] = useState(null); // Seçilen başvuruyu tutmak için state
-  const [showModal, setShowModal] = useState(false); // Modal'
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [showFileModal, setShowFileModal] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [fileData, setFileData] = useState(null);
+
+  useEffect(() => {
+    // İlk yükleme ve belirli aralıklarla verileri yenile
+    const interval = setInterval(() => {
+      loadVerificationRequests();
+    }, 15000); // 15 saniyede bir güncelleme yap
+    return () => clearInterval(interval); // Komponent ayrıldığında interval'i temizle
+  }, []);
+
+  function arrayBufferToBase64(arrayBuffer) {
+    let binary = "";
+    const bytes = new Uint8Array(arrayBuffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);
+  }
+
   const showDetails = (request) => {
-    setSelectedRequest(request); // Seçilen başvuruyu güncelle
-    setShowModal(true); // Modal'ı göster
+    setSelectedRequest(request);
+    setShowModal(true);
   };
 
   const hideDetails = () => {
-    setShowModal(false); // Modal'ı gizle
-    setSelectedRequest(null); // Seçilen başvuruyu sıfırla
+    setShowModal(false);
+    setSelectedRequest(null);
   };
+
+  const showFile = (fileUrl, request) => {
+    setSelectedRequest(request);
+    setSelectedFile(fileUrl);
+    handleFileClick(fileUrl);
+  };
+
+  const hideFileModal = () => {
+    setFileData(null);
+    setSelectedFile(null);
+    setShowFileModal(false);
+  };
+
+  const handleFileClick = async (fileUrl) => {
+    try {
+      const response = await getProtectedImage(fileUrl);
+      setFileData(response.data);
+      setShowFileModal(true);
+    } catch (error) {
+      console.error("Dosya alınırken hata oluştu:", error);
+    }
+  };
+
   useEffect(() => {
     loadVerificationRequests();
   }, []);
@@ -88,15 +134,18 @@ const VerificationRequestsPage = () => {
           <Sidebar />
         </div>
         <div className="col-lg-10 col-md-10">
-          <h2 className="m-2">{t("Unverified User Applications")}</h2>
+          <h4 className="m-2 text-center">
+            {t("Unverified User Applications")}
+          </h4>
           {loading && <div className="text-center">{t("Loading...")}</div>}
           {error && <div className="text-center text-danger">{error}</div>}
           {!loading && !error && (
-            <table className="table table-striped">
+            <table className="table table-striped table-bordered table-hover">
+              <caption>{t("Unverified User Applications")}</caption>
               <thead>
-                <tr>
+                <tr className="table-primary">
                   <th>{t("Request ID")}</th>
-                  <th>{t("User ID")}</th>
+                  {/* <th>{t("User ID")}</th> */}
                   <th>{t("Username")}</th>
                   <th>{t("Reason")}</th>
                   <th>{t("Attachment")}</th>
@@ -108,18 +157,16 @@ const VerificationRequestsPage = () => {
                 {verificationRequests.map((request) => (
                   <tr key={request.id}>
                     <td>{request.id}</td>
-                    <td>{request.userId}</td>
+                    {/* <td>{request.userId}</td> */}
                     <td>
                       <a
                         href={`/#/users/${request.username}`}
-                        target="_blank"
                         rel="noopener noreferrer"
                         style={{ textDecoration: "none" }}
                       >
                         {request.username}
                       </a>
                     </td>
-
                     <td>
                       {request.reason.length > 30
                         ? `${request.reason.slice(0, 30)}...`
@@ -127,26 +174,39 @@ const VerificationRequestsPage = () => {
                     </td>
 
                     <td>
+                      {request.verified ? (
+                        <span className="text-success btn-status">
+                          <b>{t("Verified")}</b>
+                        </span>
+                      ) : (
+                        <span className="text-warning btn-status">
+                          <b>{t("Unverified")}</b>
+                        </span>
+                      )}
+                    </td>
+                    <td>
                       {request.attachment ? (
-                        <a
-                          href={`images/verified/${request.attachment}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        <button
+                          className="btn btn-view"
+                          onClick={() =>
+                            showFile(`${request.attachment}`, request)
+                          }
                         >
                           {t("View Attachment")}
-                        </a>
+                        </button>
                       ) : (
-                        t("No Attachment")
+                        <button className="btn btn-view">
+                          {t("No Attachment")}
+                        </button>
                       )}
                     </td>
                     <td>
-                      {request.verified ? (
-                        <span className="text-success">{t("Verified")}</span>
-                      ) : (
-                        <span className="text-warning">{t("Unverified")}</span>
-                      )}
-                    </td>
-                    <td>
+                      <button
+                        className="btn btn-info mx-2"
+                        onClick={() => showDetails(request)}
+                      >
+                        {t("Details")}
+                      </button>
                       {request.verified ? (
                         <button
                           className="btn btn-warning me-2"
@@ -170,13 +230,6 @@ const VerificationRequestsPage = () => {
                           </button>
                         </>
                       )}
-
-                      <button
-                        className="btn btn-info ms-2"
-                        onClick={() => showDetails(request)}
-                      >
-                        {t("Details")}
-                      </button>
                     </td>
                   </tr>
                 ))}
@@ -192,8 +245,30 @@ const VerificationRequestsPage = () => {
         onClickOk={hideDetails}
         pendingApiCall={false}
         title={t("Application Details")}
-        okButton={t("Tamam")}
+        okButton={t("OK")}
       />
+      {/* Dosya Modalı */}
+      <Modal
+        visible={showFileModal}
+        showCloseButton={true}
+        cancelButtonText={t("OK")}
+        onClickCancel={hideFileModal}
+        onClickOk={hideFileModal}
+        pendingApiCall={false}
+        title={
+          selectedFile && selectedRequest
+            ? `${t("View Attachment")}: ${selectedRequest.username}`
+            : ""
+        }
+      >
+        {fileData && (
+          <iframe
+            src={`data:application/pdf;base64,${arrayBufferToBase64(fileData)}`}
+            title="PDF Görüntüleyici"
+            style={{ width: "100%", height: "72vh" }}
+          />
+        )}
+      </Modal>
     </div>
   );
 };

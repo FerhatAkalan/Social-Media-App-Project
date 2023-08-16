@@ -34,6 +34,10 @@ const ProfileCard = (props) => {
   const { id, username, displayName, image, admin, verified } = user;
   const isAdmin = useSelector((store) => store.admin);
 
+  const { displayName: displayNameError, image: imageError } = validationErrors;
+
+  const [reason, setReason] = useState("");
+  const [attachment, setAttachment] = useState("");
   useEffect(() => {
     setUser(props.user);
   }, [props.user]);
@@ -71,6 +75,7 @@ const ProfileCard = (props) => {
       setUpdatedDisplayName(displayName);
     }
   }, [inEditMode, displayName]);
+
 
   const onClickSave = async () => {
     let image;
@@ -119,28 +124,27 @@ const ProfileCard = (props) => {
     history.push("/");
   };
 
-  const { displayName: displayNameError, image: imageError } = validationErrors;
-
-  const [reason, setReason] = useState("");
-  const [attachment, setAttachment] = useState("");
 
   const handleCreateRequest = async () => {
     try {
-      const requestData = {
-        user: {
-          id: user.id,
-        },
-        reason: reason,
-        attachment: attachment,
-      };
+      const formData = new FormData();
+      formData.append("reason", reason);
+      formData.append("multipartFile", attachment);
 
-      await createVerificationRequest(username, requestData);
+      await createVerificationRequest(username, formData);
       setVerifiedRequest(false);
       console.log("Verification request created successfully.");
     } catch (error) {
       console.error("Error creating verification request:", error);
     }
   };
+  useEffect(() => {
+    if (!verifiedRequest) {
+      setReason("");
+    } else {
+      setReason(reason);
+    }
+  }, [verifiedRequest, reason]);
   return (
     <div className="card text-center">
       <div className="card-header">
@@ -154,9 +158,8 @@ const ProfileCard = (props) => {
         />
       </div>
       <div className="card-body">
-        {!inEditMode && (
+        {!inEditMode && !verifiedRequest && (
           <>
-            {" "}
             <h3>
               <span style={{ padding: "10px" }}>{displayName}</span>
               <span className="text-muted">
@@ -190,7 +193,7 @@ const ProfileCard = (props) => {
                     >
                       <i className="material-icons me-2">verified</i>
                       {t("Verified user request")}
-                    </button>{" "}
+                    </button>
                   </div>
                 )}
               </>
@@ -237,27 +240,63 @@ const ProfileCard = (props) => {
             </div>
           </div>
         )}
+        {/* VerifiedRequest Form */}
         {verifiedRequest && (
           <div className="mt-2">
-            <textarea className="form-control"
-              label={t("")}
+            <textarea
+              className={`form-control ${reason === "" ? "is-invalid" : ""}`}
               value={reason}
               placeholder={t(
                 "Reason to be verified: For example, I am a well-known person, I want my account verified."
               )}
               onChange={(event) => setReason(event.target.value)}
               style={{ height: "100px" }}
+              required
             />
-            <Input
-              type="file"
-              label={t("File to be verified")}
-              onChange={(event) => setAttachment(event.target.files[0])}
-            />
+            <div className="invalid-feedback">
+              {reason === "" && t("Please provide a reason for verification.")}
+            </div>
+            <div className="mt-2">
+              <div className="input-group">
+                <input
+                  type="file"
+                  className={`form-control ${
+                    attachment === null ||
+                    (attachment && attachment.type !== "application/pdf")
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  onChange={(event) => {
+                    const file = event.target.files[0];
+                    if (file) {
+                      if (file.type === "application/pdf") {
+                        setAttachment(file);
+                      } else {
+                        setAttachment(null);
+                      }
+                    }
+                  }}
+                  accept=".pdf"
+                />
+                <div className="invalid-feedback">
+                {attachment === null
+                  ? t("Please select a PDF file.")
+                  : attachment.type !== "application/pdf" &&
+                    t("Please select a valid PDF file.")}
+              </div>
+                <label className="input-group-text" htmlFor="inputGroupFile">
+                  {t("Only PDF File")}
+                </label>
+              </div>
+              
+            </div>
             <div className="mt-2">
               <ButtonWithProgress
                 className="btn btn-info m-1"
                 onClick={handleCreateRequest}
-                disabled={pendingApiCall}
+                disabled={
+                  pendingApiCall || reason === "" || attachment === null
+                }
                 pendingApiCall={pendingApiCall}
                 icon="fa-regular fa-circle-check me-2 mr-2"
                 text={<>{t("Send Request")}</>}
@@ -273,6 +312,7 @@ const ProfileCard = (props) => {
             </div>
           </div>
         )}
+        {/* Admin Alert */}
         <h5>
           {admin && (
             <div class="alert alert-secondary d-inline-block m-2" role="alert">
@@ -285,6 +325,7 @@ const ProfileCard = (props) => {
         </h5>
       </div>
       <Modal
+        cancelButtonText={t("Cancel")}
         visible={modalVisible}
         title={t("Delete Account")}
         okButton={t("Delete Account")}

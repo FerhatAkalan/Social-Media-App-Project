@@ -26,10 +26,12 @@ com\social\ws\auth\TokenRepository.class
 com\social\ws\shared\CurrentUser.class
 com\social\ws\translation\I18nText.class
 com\social\ws\verify\VerificationRequestRepository.class
+com\social\ws\user\UserDAO.class
 com\social\ws\file\FileService.class
 com\social\ws\user\UserRepository.class
 com\social\ws\shared\GenericResponse.class
 com\social\ws\auth\Credentials.class
 com\social\ws\user\UserService.class
+com\social\ws\configuration\JpaConfig.class
 com\social\ws\auth\AuthResponse.class
 com\social\ws\verify\VerificationRequestService.class

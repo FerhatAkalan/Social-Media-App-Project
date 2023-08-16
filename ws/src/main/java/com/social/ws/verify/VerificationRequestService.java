@@ -1,11 +1,13 @@
 package com.social.ws.verify;
 
+import com.social.ws.file.FileAttachment;
 import com.social.ws.file.FileService;
 import com.social.ws.user.User;
 import com.social.ws.user.UserRepository;
 import com.social.ws.verify.vm.VerificationRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,12 +28,15 @@ public class VerificationRequestService {
         return verificationRequestRepository.findAll();
     }
 
-    public void createVerificationRequest(VerificationRequest verificationRequest) {
-        User userFromDB = userRepository.findById(verificationRequest.getUser().getId()).orElse(null);
-        if (userFromDB != null) {
-            verificationRequest.setUser(userFromDB);
-            verificationRequestRepository.save(verificationRequest);
+    public void createVerificationRequestWithFile(User user, MultipartFile multipartFile, String reason) {
+        VerificationRequest verificationRequest = new VerificationRequest();
+        verificationRequest.setUser(user);
+        verificationRequest.setReason(reason);
+        if (multipartFile != null) {
+            FileAttachment attachment = fileService.saveVerificationAttachment(multipartFile);
+            verificationRequest.setAttachment(attachment.getName());
         }
+        verificationRequestRepository.save(verificationRequest);
     }
 
     public VerificationRequestDTO convertToDTO(VerificationRequest request) {
@@ -53,7 +58,6 @@ public class VerificationRequestService {
     public void approveVerificationRequest(long id) {
         VerificationRequest request = verificationRequestRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid verification request ID"));
-
         User user = request.getUser();
         user.setVerified(true);
         userRepository.save(user);
@@ -69,7 +73,13 @@ public class VerificationRequestService {
     }
 
     public void rejectVerificationRequest(long id) {
+        VerificationRequest request = verificationRequestRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid verification request ID"));
+        String attachmentName = request.getAttachment();
         deleteVerificationRequest(id);
+        if (attachmentName != null) {
+            fileService.deleteVerificationAttachment(attachmentName);
+        }
     }
 
     public void deleteVerificationRequest(long id) {

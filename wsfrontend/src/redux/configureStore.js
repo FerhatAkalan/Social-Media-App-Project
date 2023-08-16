@@ -11,7 +11,7 @@ import { setAuthorizationHeader } from "../api/apiCalls";
 const secureLS = new SecureLS();
 
 const getStateFormStorage = () => {
-  const hoaxAuth = localStorage.getItem("hoax-auth");
+  const postAuth = localStorage.getItem("post-auth");
 
   let stateInlocalStorage = {
     isLoggedIn: false,
@@ -21,8 +21,8 @@ const getStateFormStorage = () => {
     password: undefined,
   };
 
-  if (hoaxAuth) {
-    return hoaxAuth;
+  if (postAuth) {
+    return postAuth;
   }
   return stateInlocalStorage;
 };

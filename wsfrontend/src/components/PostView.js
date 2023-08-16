@@ -12,11 +12,13 @@ import VerifiedBadge from "./VerifiedBadge";
 
 const PostView = (props) => {
   const loggedInUser = useSelector((store) => store.username);
+  const displayNameCurrent = useSelector((store) =>  store.displayName); 
+  const imageCurrent = useSelector((store) =>  store.image); 
+
   const { post, onDeletePost } = props;
   const { user, content, timestamp, fileAttachment, id } = post;
   const { username, displayName, image, admin, verified } = user;
   const [modalVisible, setModalVisible] = useState(false);
-
   const { i18n, t } = useTranslation();
 
   const pendingApiCall = useApiProgress("delete", `/api/1.0/posts/${id}`, true);
@@ -41,7 +43,7 @@ const PostView = (props) => {
           <Link to={`/users/${username}`}>
             <ProfileImageWithDefault
               Link={`/users/${username}`}
-              image={image}
+              image={imageCurrent}
               width="32"
               height="32"
               className="rounded-circle m-1"
@@ -54,7 +56,7 @@ const PostView = (props) => {
               style={{ textDecoration: "none" }}
             >
               <h6 className="d-inline">
-                <span>{displayName}</span>
+                <span>{displayNameCurrent}</span>
                 <span className="text-muted"> @{username}</span>
               </h6>
             </Link>
@@ -135,6 +137,7 @@ const PostView = (props) => {
         visible={modalVisible}
         title={t("Delete Post")}
         onClickCancel={onClickCancel}
+        cancelButtonText={t("Cancel")}
         onClickOk={onClickDelete}
         message={
           <div>

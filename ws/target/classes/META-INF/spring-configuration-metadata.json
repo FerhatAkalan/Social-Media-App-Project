@@ -25,10 +25,10 @@
       "sourceType": "com.social.ws.configuration.AppConfiguration"
     },
     {
-      "name": "social.verify-storage",
+      "name": "social.verified-storage",
       "type": "java.lang.String",
       "sourceType": "com.social.ws.configuration.AppConfiguration",
-      "defaultValue": "verify"
+      "defaultValue": "verified"
     }
   ],
   "hints": []

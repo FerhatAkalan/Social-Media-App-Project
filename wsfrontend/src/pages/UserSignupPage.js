@@ -4,7 +4,7 @@ import Input from "../components/Input";
 import { useTranslation } from "react-i18next";
 import ButtonWithProgress from '../components/ButtonWithProgress';
 import { useApiProgress } from "../shared/ApiProgress";
-import background from "../assets/background8.jpg";
+import background from "../assets/2.jpg";
 import { useDispatch } from "react-redux";
 import { signupHandler } from "../redux/authActions";
 

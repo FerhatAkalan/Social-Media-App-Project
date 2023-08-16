@@ -124,7 +124,7 @@ public class FileService {
 
     public FileAttachment saveVerificationAttachment(MultipartFile multipartFile) {
         String fileName = generateRandomName();
-        File target = new File(appConfiguration.getVerifyStorage() + "/" + fileName);
+        File target = new File(appConfiguration.getVerifiedStorage() + "/" + fileName);
         String fileType = null;
         try {
             byte[] arr = multipartFile.getBytes();
@@ -141,4 +141,12 @@ public class FileService {
         attachment.setFileType(fileType);
         return fileAttachmentRepository.save(attachment);
     }
+
+    public void deleteVerificationAttachment(String attachmentName) {
+        if (attachmentName == null) {
+            return;
+        }
+        deleteFile(Paths.get(appConfiguration.getVerifiedStorage(), attachmentName));
+    }
+
 }
