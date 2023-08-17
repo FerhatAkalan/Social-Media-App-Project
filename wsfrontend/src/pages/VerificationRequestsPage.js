@@ -25,7 +25,7 @@ const VerificationRequestsPage = () => {
     // İlk yükleme ve belirli aralıklarla verileri yenile
     const interval = setInterval(() => {
       loadVerificationRequests();
-    }, 15000); // 15 saniyede bir güncelleme yap
+    }, 10000); // 10 saniyede bir güncelleme yap
     return () => clearInterval(interval); // Komponent ayrıldığında interval'i temizle
   }, []);
 

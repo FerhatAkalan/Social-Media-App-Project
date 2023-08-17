@@ -13,7 +13,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Constraint(validatedBy = {FileTypeValidator.class})
 public @interface FileType {
-    String message() default "{hoaxify.constraint.ProfileImage.message}";
+    String message() default "{social.constraint.ProfileImage.message}";
 
     Class<?>[] groups() default {};
 

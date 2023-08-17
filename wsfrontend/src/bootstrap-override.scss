@@ -33,6 +33,9 @@ $warning: #ffad1f;
 .btn-fav-link:hover {
   color: $danger;
 }
+.btn-fav-link:active {
+  color: $danger;
+}
 .btn-retweet-link {
   display: inline-flex;
   align-items: center;

@@ -43,7 +43,7 @@ const PostView = (props) => {
           <Link to={`/users/${username}`}>
             <ProfileImageWithDefault
               Link={`/users/${username}`}
-              image={imageCurrent}
+              image={image}
               width="32"
               height="32"
               className="rounded-circle m-1"
@@ -56,7 +56,7 @@ const PostView = (props) => {
               style={{ textDecoration: "none" }}
             >
               <h6 className="d-inline">
-                <span>{displayNameCurrent}</span>
+                <span>{displayName}</span>
                 <span className="text-muted"> @{username}</span>
               </h6>
             </Link>

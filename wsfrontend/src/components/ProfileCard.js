@@ -43,7 +43,7 @@ const ProfileCard = (props) => {
   }, [props.user]);
 
   useEffect(() => {
-    setEditable(pathUsername === loggedInUsername || isAdmin);
+    setEditable(pathUsername === loggedInUsername);
   }, [pathUsername, loggedInUsername]);
 
   useEffect(() => {
@@ -167,15 +167,15 @@ const ProfileCard = (props) => {
               </span>
               {verified && <VerifiedBadge isAdmin={admin} />}
             </h3>
-            {editable && (
+            {(editable || isAdmin) && (
               <>
-                <button
+                {editable && <button
                   className="btn btn-success d-inline-flex"
                   onClick={() => setInEditMode(true)}
                 >
                   <i class="fa-regular fa-pen-to-square me-1 mt-1"></i>
                   {t("Edit")}
-                </button>
+                </button>}
                 <div className="pt-2">
                   <button
                     className="btn btn-danger d-inline-flex"
