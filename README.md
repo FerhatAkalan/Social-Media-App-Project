@@ -4,6 +4,13 @@ This project was developed using Java Spring Boot, React and PostgreSQL.
 
 ## Project Video
 ---
+### Last Version
+---
+https://github.com/FerhatAkalan/Social-Media-App-Project/assets/102834897/0611f872-1ec7-4e98-a5b7-f65fbc3527ce
+
+---
+### Old Version
+---
 https://github.com/FerhatAkalan/Social-Media-App-Project/assets/102834897/467a3e78-a523-4d31-bdfd-129095951f88
 
 
