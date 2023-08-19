@@ -87,8 +87,8 @@ const Sidebar = () => {
                 className="list-group-item list-group-item-action"
                 style={{ cursor: "pointer" }}
               >
-                <i className="fas fa-heart fa-lg me-2 text-dark"></i>{" "}
-                {t("Favorites")}
+                <i className="fas fa-bookmark fa-lg me-2 text-dark"></i>{" "}
+                {t("Bookmarks")}
               </li>
               <li
                 className="list-group-item list-group-item-action"

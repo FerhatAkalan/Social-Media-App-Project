@@ -1,5 +1,5 @@
 import * as ACTIONS from "./Constants";
-import { login, signup, logout } from "../api/apiCalls";
+import { login, signup, logout,likePostApi,unlikePostApi } from "../api/apiCalls";
 
 export const logoutSucces = () => {
   return async function (dispatch) {
@@ -53,5 +53,27 @@ export const signupHandler = (user) => {
     const response = await signup(user);
     await dispatch(loginHandler(user));
     return response;
+  };
+};
+export const likePost = (postId, loggedInUsername) => {
+  return async (dispatch) => {
+    try {
+      await likePostApi(postId, loggedInUsername);
+      dispatch({ type: 'LIKE_POST', payload: postId });
+    } catch (error) {
+      console.error('Error liking post:', error);
+    }
+  };
+};
+
+
+export const unlikePost = (postId, loggedInUsername) => {
+  return async (dispatch) => {
+    try {
+      await unlikePostApi(postId, loggedInUsername);
+      dispatch({ type: 'UNLIKE_POST', payload: postId });
+    } catch (error) {
+      console.error('Error unliking post:', error);
+    }
   };
 };

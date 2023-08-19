@@ -1,41 +1,77 @@
-import React from "react";
+import React,{useEffect} from "react";
 import ProfileImageWithDefault from "./ProfileImageWithDefault";
 import { Link } from "react-router-dom";
 import { format } from "timeago.js";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { deletePost } from "../api/apiCalls";
+import { useSelector,useDispatch } from "react-redux";
+import { deletePost,fetchLikeCount, checkLikeStatus } from "../api/apiCalls";
 import { useState } from "react";
 import { useApiProgress } from "../shared/ApiProgress";
 import Modal from "../components/Modal";
 import VerifiedBadge from "./VerifiedBadge";
-
+import { likePost, unlikePost } from "../redux/authActions"; // Eklenen satır
 const PostView = (props) => {
   const loggedInUser = useSelector((store) => store.username);
-  const displayNameCurrent = useSelector((store) =>  store.displayName); 
-  const imageCurrent = useSelector((store) =>  store.image); 
-
   const { post, onDeletePost } = props;
   const { user, content, timestamp, fileAttachment, id } = post;
   const { username, displayName, image, admin, verified } = user;
   const [modalVisible, setModalVisible] = useState(false);
   const { i18n, t } = useTranslation();
-
+  const dispatch = useDispatch();
   const pendingApiCall = useApiProgress("delete", `/api/1.0/posts/${id}`, true);
-
   const onClickDelete = async () => {
     await deletePost(id);
     onDeletePost(id);
   };
-
   const onClickCancel = async () => {
     setModalVisible(false);
   };
-
   const formatted = format(timestamp, i18n.language);
   const isAdmin = useSelector((store) => store.admin);
   const ownedByLoggedInUser = loggedInUser === username || isAdmin;
+  const [liked, setLiked] = useState();
+  const [likeCount, setLikeCount] = useState(0);
+  useEffect(() => {
+    const loadLikeStatus = async () => {
+      try {
+        const response = await checkLikeStatus(id, loggedInUser);
+        setLiked(response);
+      } catch (error) {
+        console.error("Error while loading like status:", error);
+      }
+    };
+    loadLikeStatus();
+  }, [id, loggedInUser]);
 
+
+
+
+  const handleLikeClick = async () => {
+    if(loggedInUser){
+      try {
+        if (liked) {
+          console.log()
+          await dispatch(unlikePost(id, loggedInUser));
+        } else {
+          await dispatch(likePost(id, loggedInUser));
+        }
+        setLiked(!liked);
+      } catch (error) {
+        console.error("Error while liking/unliking the post:", error);
+      }
+    }
+  };
+  useEffect(() => {
+    const fetchLikeCountGet = async () => {
+      try {
+        const response = await fetchLikeCount(id);
+        setLikeCount(response.data);
+      } catch (error) {
+        console.error("Error fetching like count:", error);
+      }
+    };
+    fetchLikeCountGet();
+  }, [id, liked,loggedInUser]);
   return (
     <>
       <div className="card p-1">
@@ -122,8 +158,15 @@ const PostView = (props) => {
           <button className="btn btn-retweet-link">
             <i class="fa-solid fa-retweet"></i>
           </button>
-          <button className="btn btn-fav-link">
-            <i class="fa-regular fa-heart"></i>
+          <button className="btn btn-fav-link" onClick={handleLikeClick}>
+            {liked ? (
+              <i className="fa-solid fa-heart text-danger"></i>
+            ) : (
+              <i className="fa-regular fa-heart"></i>
+            )}
+            <span className="ms-1">
+              {likeCount} {t("Like")}
+            </span>
           </button>
           <button className="btn btn-bookmark-link">
             <i class="fa-regular fa-bookmark"></i>

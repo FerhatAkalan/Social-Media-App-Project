@@ -1,6 +1,8 @@
 package com.social.ws.user;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.social.ws.auth.Token;
+import com.social.ws.like.Like;
 import com.social.ws.post.Post;
 import com.social.ws.verify.VerificationRequest;
 import jakarta.persistence.*;
@@ -51,21 +53,25 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Token> tokens;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<VerificationRequest> verificationRequests;
+
     private boolean isAdmin = false;
+
     private boolean isVerified = false;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Like> likes;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-
         if (isAdmin) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         } else {
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
-
         return authorities;
     }
 

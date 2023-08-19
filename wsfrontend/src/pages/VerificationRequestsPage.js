@@ -161,6 +161,7 @@ const VerificationRequestsPage = () => {
                     <td>
                       <a
                         href={`/#/users/${request.username}`}
+                        target="_blank"
                         rel="noopener noreferrer"
                         style={{ textDecoration: "none" }}
                       >

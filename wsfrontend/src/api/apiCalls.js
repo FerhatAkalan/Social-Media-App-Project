@@ -148,3 +148,36 @@ export const getProtectedImage = async (filename) => {
     throw error;
   }
 };
+
+export const likePostApi = (postId,username) => {
+  return axios.post(`/api/1.0/likes/like/${postId}/${username}`);
+};
+
+export const unlikePostApi = (postId,username) => {
+  return axios.post(`/api/1.0/likes/unlike/${postId}/${username}`);
+};
+
+export const fetchLikeCount = (postId) => {
+  return axios.get(`/api/1.0/likes/count/${postId}`);;
+};
+
+export const getLikedPosts = async (username, page = 0) => {
+  const path = username
+    ? `/api/1.0/likes/user/${username}/liked-posts?page=`
+    : "/api/1.0/likes/user/liked-posts?page=";
+  try {
+    const response = await axios.get(path + page);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+export const checkLikeStatus = async (postId, username) => {
+  try {
+    const response = await axios.get(`/api/1.0/likes/check?postId=${postId}&username=${username}`);
+    return response.data; // True veya false değeri dönecektir
+  } catch (error) {
+    console.error("Error while checking like status:", error);
+    throw error;
+  }
+};

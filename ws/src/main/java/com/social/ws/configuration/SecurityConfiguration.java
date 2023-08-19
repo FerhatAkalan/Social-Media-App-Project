@@ -33,6 +33,7 @@ public class SecurityConfiguration {
                 .requestMatchers(HttpMethod.POST, "/api/1.0/logout").authenticated()
                 .requestMatchers(HttpMethod.POST, "/api/1.0/verifications/applications").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/1.0/documents/verified").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/1.0/likes/**").authenticated()
                 .and()
                 .authorizeHttpRequests().anyRequest().permitAll();
 

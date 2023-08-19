@@ -8,13 +8,13 @@ import { useApiProgress } from "../shared/ApiProgress";
 import Spinner from "../components/Spinner";
 import PostFeed from "../components/PostFeed";
 import Sidebar from "../components/Sidebar";
-
+import LikedPostFeed from "../components/LikedPostFeed";
 const UserPage = () => {
   const [user, setUser] = useState({});
   const [notFound, setNotFound] = useState(false);
   const { username } = useParams();
   const { t } = useTranslation();
-
+  const [activeTab, setActiveTab] = useState("POSTS");
   const pendingApiCall = useApiProgress(
     "get",
     "/api/1.0/users/" + username,
@@ -55,18 +55,43 @@ const UserPage = () => {
     return <Spinner />;
   }
 
+  const loadUserPosts = () => {
+    setActiveTab("POSTS");
+  };
+  const loadUserLikes = () => {
+    setActiveTab("LIKES");
+  };
   return (
     <div class="container mt-3">
       <div class="row">
         <div className="col-md-2">
-          <Sidebar user={user}/>
+          <Sidebar user={user} />
         </div>
         <div className="col-md-6">
-          <div className="card text-center text-primary mb-2">{t("POSTS")}</div>
-          <PostFeed />
+          <div className="btn-group mb-2">
+            <div
+              className={`btn btn-light btn-lg tab-button ${
+                activeTab === "POSTS" ? "active" : ""
+              }`}
+              onClick={loadUserPosts}
+            >
+              {t("POSTS")}
+            </div>
+            <div
+              className={`btn btn-light btn-lg ms-2 tab-button ${
+                activeTab === "LIKES" ? "active" : ""
+              } ${activeTab === "LIKES" ? "like-active" : ""}`}
+              onClick={loadUserLikes}
+            >
+              {t("LIKES")}
+            </div>
+          </div>
+          {activeTab === "POSTS" && <PostFeed username={username} />}
+          {activeTab === "LIKES" && <LikedPostFeed username={username} />}
         </div>
+
         <div className="col-md-4">
-          <ProfileCard user={user}   />
+          <ProfileCard user={user} />
           <h1 class="text-center">{t("Profile")}</h1>
           <img
             class="rounded mx-auto d-block"
