@@ -8,12 +8,16 @@ import {
   updateUser,
   deleteUser,
   createVerificationRequest,
+  getFollowing,
+  getFollowers,checkFollowStatusApi
 } from "../api/apiCalls";
 import { useApiProgress } from "../shared/ApiProgress";
 import ButtonWithProgress from "../components/ButtonWithProgress";
 import { updateSuccess, logoutSucces } from "../redux/authActions";
 import Modal from "../components/Modal";
 import VerifiedBadge from "./VerifiedBadge";
+import FollowButton from "./FollowButton";
+import UserListItem from "./UserListItem";
 
 const ProfileCard = (props) => {
   const [inEditMode, setInEditMode] = useState(false);
@@ -33,11 +37,11 @@ const ProfileCard = (props) => {
   const history = useHistory();
   const { id, username, displayName, image, admin, verified } = user;
   const isAdmin = useSelector((store) => store.admin);
-
   const { displayName: displayNameError, image: imageError } = validationErrors;
-
   const [reason, setReason] = useState("");
   const [attachment, setAttachment] = useState("");
+  const { t } = useTranslation();
+
   useEffect(() => {
     setUser(props.user);
   }, [props.user]);
@@ -65,7 +69,6 @@ const ProfileCard = (props) => {
     `/api/1.0/users/${username}`,
     true
   );
-  const { t } = useTranslation();
 
   useEffect(() => {
     if (!inEditMode) {
@@ -75,7 +78,6 @@ const ProfileCard = (props) => {
       setUpdatedDisplayName(displayName);
     }
   }, [inEditMode, displayName]);
-
 
   const onClickSave = async () => {
     let image;
@@ -124,7 +126,6 @@ const ProfileCard = (props) => {
     history.push("/");
   };
 
-
   const handleCreateRequest = async () => {
     try {
       const formData = new FormData();
@@ -145,6 +146,70 @@ const ProfileCard = (props) => {
       setReason(reason);
     }
   }, [verifiedRequest, reason]);
+
+  const [followingUsers, setFollowingUsers] = useState([]);
+  const [followerUsers, setFollowerUsers] = useState([]);
+  const [isFollowing, setIsFollowing] = useState();
+  const [isFollower, setIsFollower] = useState(false);
+
+  const [followingListVisible, setFollowingListVisible] = useState(false);
+  const [followerListVisible, setFollowerListVisible] = useState(false);
+
+  const loadFollowingAndFollowerUsers = async () => {
+    try {
+      const followingResponse = await getFollowing(username);
+      setFollowingUsers(followingResponse.data);
+      const followerResponse = await getFollowers(username);
+      setFollowerUsers(followerResponse.data);
+    } catch (error) {
+      console.error("Error loading following and follower users:", error);
+    }
+  };
+
+  const checkIsFollower = () => {
+    return followingUsers.some((user) => user.username === loggedInUsername);
+  };
+
+  useEffect(() => {
+    loadFollowingAndFollowerUsers();
+    if (loggedInUsername) {
+      setIsFollower(checkIsFollower());
+    }
+  }, [username, loggedInUsername, isFollowing]);
+
+  const openFollowingList = async () => {
+    try {
+      const followingResponse = await getFollowing(username);
+      setFollowingUsers(followingResponse.data);
+      setFollowingListVisible(true);
+    } catch (error) {
+      console.error("Error loading following users:", error);
+    }
+  };
+
+  const openFollowerList = async () => {
+    try {
+      const followerResponse = await getFollowers(username);
+      setFollowerUsers(followerResponse.data);
+      setFollowerListVisible(true);
+    } catch (error) {
+      console.error("Error loading follower users:", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchFollowStatus = async () => {
+      try {
+        const response = await checkFollowStatusApi(loggedInUsername, username);
+        setIsFollowing(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Takip durumu alınamadı:", error);
+      }
+    };
+    fetchFollowStatus();
+  }, [loggedInUsername, isFollowing, isFollower]);
+
   return (
     <div className="card text-center">
       <div className="card-header">
@@ -160,44 +225,92 @@ const ProfileCard = (props) => {
       <div className="card-body">
         {!inEditMode && !verifiedRequest && (
           <>
-            <h3>
-              <span style={{ padding: "10px" }}>{displayName}</span>
-              <span className="text-muted">
-                <br /> @{username}
-              </span>
-              {verified && <VerifiedBadge isAdmin={admin} />}
+            <h3 className="card">
+              <div className="card-body p-2">
+                <span style={{ padding: "10px" }}>{displayName}</span>
+                <span className="text-muted">
+                  <br /> @{username}
+                </span>
+                {verified && <VerifiedBadge isAdmin={admin} />}
+              </div>
             </h3>
-            {(editable || isAdmin) && (
-              <>
-                {editable && <button
-                  className="btn btn-success d-inline-flex"
-                  onClick={() => setInEditMode(true)}
-                >
-                  <i class="fa-regular fa-pen-to-square me-1 mt-1"></i>
-                  {t("Edit")}
-                </button>}
-                <div className="pt-2">
-                  <button
-                    className="btn btn-danger d-inline-flex"
-                    onClick={() => setModalVisible(true)}
-                  >
-                    <i className="material-icons me-2">person_remove</i>
-                    {t("Delete Account")}
-                  </button>
-                </div>
-                {(!verified || isAdmin) && (
-                  <div className="pt-2">
-                    <button
-                      className="btn btn-primary d-inline-flex"
-                      onClick={() => setVerifiedRequest(true)}
+            {/* Following Users */}
+            <div className="card my-2">
+              <div className="row">
+                <div className="col-6">
+                  <div className="card btn btn-fav-link">
+                    <div
+                      className="card-body p-1"
+                      style={{ cursor: "pointer" }}
+                      onClick={openFollowingList}
                     >
-                      <i className="material-icons me-2">verified</i>
-                      {t("Verified user request")}
-                    </button>
+                      <h6 className="card-title">{t("Followed")}</h6>
+                      <h4 className="card-text">{followingUsers.length}</h4>
+                    </div>
                   </div>
-                )}
-              </>
-            )}
+                </div>
+                <div className="col-6">
+                  <div className="card btn btn-fav-link">
+                    <div
+                      className="card-body p-1"
+                      style={{ cursor: "pointer" }}
+                      onClick={openFollowerList}
+                    >
+                      <h6 className="card-title">{t("Followers")}</h6>
+                      <h4 className="card-text">{followerUsers.length}</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="card">
+              <div className="card-header">{t("Profile Settings")}</div>
+              <div className="card-body p-2">
+                {(editable || isAdmin) && (
+                  <>
+                    {editable && (
+                      <button
+                        className="btn btn-update-account d-inline-flex"
+                        onClick={() => setInEditMode(true)}
+                      >
+                        <i class="fa-regular fa-pen-to-square me-1 mt-1"></i>
+                        {t("Edit")}
+                      </button>
+                    )}
+                    {loggedInUsername !== username && (
+                      <div className="mt-2">
+                        <FollowButton
+                          loggedInUsername={loggedInUsername}
+                          username={username}
+                          isFollowing={isFollowing}
+                          setIsFollowing={setIsFollowing}
+                        />
+                      </div>
+                    )}
+                    <div className="pt-2">
+                      <button
+                        className="btn btn-delete-account d-inline-flex"
+                        onClick={() => setModalVisible(true)}
+                      >
+                        <i className="material-icons me-2">person_remove</i>
+                        {t("Delete Account")}
+                      </button>
+                    </div>
+                    {(!verified || isAdmin) && (
+                      <div className="pt-2">
+                        <button
+                          className="btn btn-verify-request d-inline-flex"
+                          onClick={() => setVerifiedRequest(true)}
+                        >
+                          <i className="material-icons me-2">verified</i>
+                          {t("Verified user request")}
+                        </button>
+                      </div>
+                    )}
+                  </>
+                )}{" "}
+              </div>
+            </div>
           </>
         )}
         {inEditMode && (
@@ -218,7 +331,7 @@ const ProfileCard = (props) => {
             />
             <div className="mt-2">
               <ButtonWithProgress
-                className="btn btn-primary d-inline-flex mr-2"
+                className="btn btn-post d-inline-flex"
                 onClick={onClickSave}
                 disabled={pendingApiCall}
                 pendingApiCall={pendingApiCall}
@@ -230,7 +343,7 @@ const ProfileCard = (props) => {
                 }
               />
               <button
-                className="btn btn-light d-inline-flex ml-1"
+                className="btn btn-cancel d-inline-flex"
                 onClick={() => setInEditMode(false)}
                 disabled={pendingApiCall}
               >
@@ -279,20 +392,19 @@ const ProfileCard = (props) => {
                   accept=".pdf"
                 />
                 <div className="invalid-feedback">
-                {attachment === null
-                  ? t("Please select a PDF file.")
-                  : attachment.type !== "application/pdf" &&
-                    t("Please select a valid PDF file.")}
-              </div>
+                  {attachment === null
+                    ? t("Please select a PDF file.")
+                    : attachment.type !== "application/pdf" &&
+                      t("Please select a valid PDF file.")}
+                </div>
                 <label className="input-group-text" htmlFor="inputGroupFile">
                   {t("Only PDF File")}
                 </label>
               </div>
-              
             </div>
             <div className="mt-2">
               <ButtonWithProgress
-                className="btn btn-info m-1"
+                className="btn btn-post m-1"
                 onClick={handleCreateRequest}
                 disabled={
                   pendingApiCall || reason === "" || attachment === null
@@ -302,7 +414,7 @@ const ProfileCard = (props) => {
                 text={<>{t("Send Request")}</>}
               />
               <button
-                className="btn btn-light d-inline-flex ml-1"
+                className="btn btn-cancel d-inline-flex ml-1"
                 onClick={() => setVerifiedRequest(false)}
                 disabled={pendingApiCall}
               >
@@ -315,15 +427,68 @@ const ProfileCard = (props) => {
         {/* Admin Alert */}
         <h5>
           {admin && (
-            <div class="alert alert-secondary d-inline-block m-2" role="alert">
-              <div className="ms-auto">
-                {t("Be Careful This is Admin")}
-                <i class="fa-regular fa-id-card m-1"></i>
+            <div className="card my-2">
+              <div
+                class="alert alert-secondary d-inline-block m-2"
+                role="alert"
+              >
+                <div className="ms-auto">
+                  {t("Be Careful This is Admin")}
+                  <i class="fa-regular fa-id-card m-1"></i>
+                </div>
               </div>
             </div>
           )}
         </h5>
       </div>
+      {followingListVisible && (
+        <Modal
+          visible={followingListVisible}
+          onClickCancel={() => setFollowingListVisible(false)}
+          title={t("Followed Users")}
+          showCloseButton={true}
+          message={
+            followingUsers.length > 0 ? (
+              <div className="card">
+                <div className="list-group list-group-flush">
+                  {followingUsers.map((user) => (
+                    <UserListItem key={user.username} user={user} />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="card text-center p-3">
+                {t("No followed users yet.")}
+              </div>
+            )
+          }
+        />
+      )}
+
+      {followerListVisible && (
+        <Modal
+          visible={followerListVisible}
+          onClickCancel={() => setFollowerListVisible(false)}
+          title={t("Followers")}
+          showCloseButton={true}
+          message={
+            followerUsers.length > 0 ? (
+              <div className="card">
+                <div className="list-group list-group-flush">
+                  {followerUsers.map((user) => (
+                    <UserListItem key={user.username} user={user} />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="card text-center p-3">
+                {t("No followers yet.")}
+              </div>
+            )
+          }
+        />
+      )}
+
       <Modal
         cancelButtonText={t("Cancel")}
         visible={modalVisible}

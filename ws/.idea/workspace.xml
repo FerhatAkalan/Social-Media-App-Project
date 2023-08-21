@@ -5,27 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5f4730e-452d-4cc7-9735-4a2c38475c53" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/social/ws/like/Like.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/social/ws/like/LikeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/social/ws/like/LikeRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/social/ws/like/LikeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/social/ws/configuration/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/social/ws/configuration/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/social/ws/post/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/social/ws/post/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/social/ws/like/LikeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/social/ws/like/LikeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/social/ws/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/social/ws/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/social/ws/configuration/SecurityConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/social/ws/configuration/SecurityConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/social/ws/like/Like.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/social/ws/like/Like.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/social/ws/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/social/ws/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/social/ws/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/social/ws/user/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/social/ws/like/LikeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/social/ws/like/LikeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/social/ws/like/LikeRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/social/ws/like/LikeRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/social/ws/like/LikeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/social/ws/like/LikeService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/social/ws/post/Post.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/social/ws/post/Post.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/social/ws/user/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/social/ws/user/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/social/ws/user/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/social/ws/user/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/social/ws/user/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/social/ws/user/UserService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/0.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/0.pack" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/1.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/1.pack" afterDir="false" />
@@ -45,7 +33,18 @@
       <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/22.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/22.pack" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/23.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/23.pack" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/24.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/24.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/25.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/25.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/26.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/26.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/27.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/27.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/28.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/28.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/29.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/29.pack" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/3.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/3.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/30.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/30.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/31.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/31.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/32.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/32.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/33.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/33.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/34.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/34.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/35.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/35.pack" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/4.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/4.pack" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/5.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/5.pack" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/6.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/6.pack" afterDir="false" />
@@ -54,19 +53,10 @@
       <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/9.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/9.pack" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/index.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/index.pack" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/index.pack.old" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/index.pack.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wsfrontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wsfrontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../wsfrontend/src/api/apiCalls.js" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/src/api/apiCalls.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../wsfrontend/src/bootstrap-override.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/src/bootstrap-override.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../wsfrontend/src/components/PostView.js" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/src/components/PostView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wsfrontend/src/components/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/src/components/Sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wsfrontend/src/pages/UserPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/src/pages/UserPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wsfrontend/src/pages/UserSignupPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/src/pages/UserSignupPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wsfrontend/src/pages/VerificationRequestsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/src/pages/VerificationRequestsPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wsfrontend/src/redux/Constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/src/redux/Constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wsfrontend/src/redux/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/src/redux/authActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wsfrontend/src/redux/authReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/src/redux/authReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/src/components/ProfileCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/src/components/ProfileCard.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

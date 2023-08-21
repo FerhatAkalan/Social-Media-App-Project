@@ -23,6 +23,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/1.0")
@@ -90,5 +92,42 @@ public class UserController {
         }
     }
 
+    @PostMapping("/users/{followerUsername}/follow/{followedUsername}")
+    @PreAuthorize("#followerUsername == principal.username or hasRole('ADMIN')")
+    GenericResponse followUser(@PathVariable String followerUsername, @PathVariable String followedUsername) {
+        if (!followerUsername.equals(followedUsername) && !userService.isAlreadyFollowing(followerUsername, followedUsername)) {
+            userService.followUser(followerUsername, followedUsername);
+            return new GenericResponse("User followed");
+        } else if (followerUsername.equals(followedUsername)) {
+            return new GenericResponse("Cannot follow yourself");
+        } else {
+            return new GenericResponse("Already following this user");
+        }
+    }
+
+    @PreAuthorize("#followerUsername == principal.username or hasRole('ADMIN')")
+    @PostMapping("/users/{followerUsername}/unfollow/{followedUsername}")
+    GenericResponse unfollowUser(@PathVariable String followerUsername, @PathVariable String followedUsername) {
+        userService.unfollowUser(followerUsername, followedUsername);
+        return new GenericResponse("User unfollowed");
+    }
+
+    @GetMapping("/users/{username}/following")
+    public List<UserVM> getFollowing(@PathVariable String username) {
+        List<User> following = userService.getFollowing(username);
+        return following.stream().map(UserVM::new).collect(Collectors.toList());
+    }
+
+    @GetMapping("/users/{username}/followers")
+    public List<UserVM> getFollowers(@PathVariable String username) {
+        List<User> followers = userService.getFollowers(username);
+        return followers.stream().map(UserVM::new).collect(Collectors.toList());
+    }
+
+    @GetMapping("/users/{followerUsername}/is-following/{followedUsername}")
+    public ResponseEntity<?> checkFollowStatus(@PathVariable String followerUsername, @PathVariable String followedUsername) {
+        boolean isFollowing = userService.isAlreadyFollowing(followerUsername, followedUsername);
+        return ResponseEntity.ok(isFollowing);
+    }
 
 }

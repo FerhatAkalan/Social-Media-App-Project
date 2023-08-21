@@ -112,7 +112,7 @@ const PostSubmit = () => {
               )}
               <div className="d-flex justify-content-end align-items-center">
                 <ButtonWithProgress
-                  className="btn btn-info m-1"
+                  className="btn btn-post m-1"
                   onClick={onClickPostIt}
                   text={t(" TalkIt")}
                   pendingApiCall={pendingApiCall}
@@ -120,7 +120,7 @@ const PostSubmit = () => {
                   icon="fa-regular fa-paper-plane me-1"
                 />
                 <button
-                  className="btn btn-light"
+                  className="btn btn-cancel"
                   onClick={() => setFocused(false)}
                   disabled={pendingApiCall}
                 >

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @Service
@@ -66,4 +67,52 @@ public class UserService {
         fileService.deleteAllStoredFilesForUser(inDB);
         userRepository.delete(inDB);
     }
+
+    public boolean isAlreadyFollowing(String followerUsername, String followedUsername) {
+        User follower = userRepository.findByUsername(followerUsername);
+        User followedUser = userRepository.findByUsername(followedUsername);
+
+        return follower.getFollowing().contains(followedUser);
+    }
+
+    public void followUser(String followerUsername, String followedUsername) {
+        User follower = userRepository.findByUsername(followerUsername);
+        User followedUser = userRepository.findByUsername(followedUsername);
+
+        follower.getFollowing().add(followedUser);
+        followedUser.getFollowers().add(follower);
+
+        userRepository.saveAll(List.of(follower, followedUser));
+    }
+
+    public void unfollowUser(String followerUsername, String followedUsername) {
+        User follower = userRepository.findByUsername(followerUsername);
+        User followedUser = userRepository.findByUsername(followedUsername);
+
+        follower.getFollowing().remove(followedUser);
+        followedUser.getFollowers().remove(follower);
+
+        userRepository.saveAll(List.of(follower, followedUser));
+    }
+
+    public List<User> getFollowing(String username) {
+        User user = userRepository.findByUsername(username);
+
+        if (user != null) {
+            return user.getFollowing();
+        } else {
+            throw new NotFoundException();
+        }
+    }
+
+    public List<User> getFollowers(String username) {
+        User user = userRepository.findByUsername(username);
+
+        if (user != null) {
+            return user.getFollowers();
+        } else {
+            throw new NotFoundException();
+        }
+    }
+
 }

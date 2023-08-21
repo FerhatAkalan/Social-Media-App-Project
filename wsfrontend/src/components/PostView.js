@@ -1,15 +1,23 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import ProfileImageWithDefault from "./ProfileImageWithDefault";
 import { Link } from "react-router-dom";
 import { format } from "timeago.js";
 import { useTranslation } from "react-i18next";
-import { useSelector,useDispatch } from "react-redux";
-import { deletePost,fetchLikeCount, checkLikeStatus } from "../api/apiCalls";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  deletePost,
+  fetchLikeCount,
+  checkLikeStatus,
+  getLikedPosts,
+  fetchLikedUsers,
+} from "../api/apiCalls";
 import { useState } from "react";
 import { useApiProgress } from "../shared/ApiProgress";
 import Modal from "../components/Modal";
 import VerifiedBadge from "./VerifiedBadge";
-import { likePost, unlikePost } from "../redux/authActions"; // Eklenen satır
+import { likePost, unlikePost } from "../redux/authActions";
+import UserListItem from "./UserListItem";
+
 const PostView = (props) => {
   const loggedInUser = useSelector((store) => store.username);
   const { post, onDeletePost } = props;
@@ -43,14 +51,11 @@ const PostView = (props) => {
     loadLikeStatus();
   }, [id, loggedInUser]);
 
-
-
-
   const handleLikeClick = async () => {
-    if(loggedInUser){
+    if (loggedInUser) {
       try {
         if (liked) {
-          console.log()
+          console.log();
           await dispatch(unlikePost(id, loggedInUser));
         } else {
           await dispatch(likePost(id, loggedInUser));
@@ -71,7 +76,26 @@ const PostView = (props) => {
       }
     };
     fetchLikeCountGet();
-  }, [id, liked,loggedInUser]);
+  }, [id, liked, loggedInUser]);
+
+  const [likeListVisible, setLikeListVisible] = useState(false);
+  const [likedUsers, setLikedUsers] = useState([]);
+
+  const openLikeList = async () => {
+    try {
+      const response = await fetchLikedUsers(id);
+      setLikedUsers(response);
+      setLikeListVisible(true);
+      console.error("Liked users response or data is undefined.");
+    } catch (error) {
+      console.error("Error fetching liked users:", error);
+    }
+  };
+
+  const closeLikeList = () => {
+    setLikeListVisible(false);
+    setLikedUsers([]); // Beğenen kişileri sıfırlayın
+  };
   return (
     <>
       <div className="card p-1">
@@ -96,7 +120,7 @@ const PostView = (props) => {
                 <span className="text-muted"> @{username}</span>
               </h6>
             </Link>
-           
+
             {verified && <VerifiedBadge isAdmin={admin} />}
             <span class="mx-2"> · </span>
             <span>{formatted}</span>
@@ -158,16 +182,22 @@ const PostView = (props) => {
           <button className="btn btn-retweet-link">
             <i class="fa-solid fa-retweet"></i>
           </button>
-          <button className="btn btn-fav-link" onClick={handleLikeClick}>
-            {liked ? (
-              <i className="fa-solid fa-heart text-danger"></i>
-            ) : (
-              <i className="fa-regular fa-heart"></i>
-            )}
-            <span className="ms-1">
+          <div>
+            <button className="btn btn-fav-link" onClick={handleLikeClick}>
+              {liked ? (
+                <i className="fa-solid fa-heart text-danger"></i>
+              ) : (
+                <i className="fa-regular fa-heart"></i>
+              )}{" "}
+            </button>
+            <span
+              className="ms-1 btn btn-fav-link"
+              onClick={openLikeList}
+              style={{ cursor: "pointer" }}
+            >
               {likeCount} {t("Like")}
             </span>
-          </button>
+          </div>
           <button className="btn btn-bookmark-link">
             <i class="fa-regular fa-bookmark"></i>
           </button>
@@ -193,6 +223,32 @@ const PostView = (props) => {
         pendingApiCall={pendingApiCall}
         okButton={t("Delete Post")}
       />
+
+      {likedUsers.length !== 0 ? (
+        <Modal
+          visible={likeListVisible}
+          onClickCancel={closeLikeList}
+          title={t("Liked By")}
+          showCloseButton={true}
+          message={
+            <div className="card">
+              <div className="list-group list-group-flush">
+                {likedUsers.map((user) => (
+                  <UserListItem key={user.username} user={user} />
+                ))}
+              </div>
+            </div>
+          }
+        />
+      ) : (
+        <Modal
+          visible={likeListVisible}
+          onClickCancel={closeLikeList}
+          title={t("Liked By")}
+          showCloseButton={true}
+          message={t("No liked posts yet.")}
+        />
+      )}
     </>
   );
 };

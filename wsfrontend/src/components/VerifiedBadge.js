@@ -44,7 +44,7 @@ const VerifiedBadge = ({ isAdmin }) => {
               <div className="modal-footer">
                 <button
                   type="button"
-                  className="btn btn-secondary"
+                  className="btn btn-cancel"
                   onClick={closeModal}
                 >
                   {t("Kapat")}

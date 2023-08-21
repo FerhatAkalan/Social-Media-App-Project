@@ -33,13 +33,13 @@ public class User implements UserDetails {
     private long id;
 
     @NotNull(message = "{hoaxify.constraint.username.NotNull.message}")
-    @Size(min = 4, max = 255)
+    @Size(min = 4, max = 25)
     @UniqueUsername
     @Column(unique = true)
     private String username;
 
     @NotNull
-    @Size(min = 4, max = 255)
+    @Size(min = 4, max = 25)
     private String displayName;
 
     @NotNull
@@ -63,6 +63,18 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Like> likes;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_follows",
+            joinColumns = @JoinColumn(name = "follower_id"),
+            inverseJoinColumns = @JoinColumn(name = "followed_id")
+    )
+    private List<User> following;  // Bu kullanıcının takip ettiği kullanıcılar
+
+    @ManyToMany(mappedBy = "following")
+    private List<User> followers;  // Bu kullanıcıyı takip eden kullanıcılar
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

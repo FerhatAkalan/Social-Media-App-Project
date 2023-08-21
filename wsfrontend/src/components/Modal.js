@@ -27,13 +27,13 @@ const Modal = (props) => {
           </div>
           <div className="modal-footer">
             {cancelButtonText && (
-              <button className="btn btn-secondary" disabled={pendingApiCall} onClick={onClickCancel}>
+              <button className="btn btn-cancel" disabled={pendingApiCall} onClick={onClickCancel}>
                 {cancelButtonText}
               </button>
             )}
             {okButton && (
               <ButtonWithProgress
-                className="btn btn-danger"
+                className="btn btn-delete-account"
                 onClick={onClickOk}
                 pendingApiCall={pendingApiCall}
                 disabled={pendingApiCall}

@@ -2,6 +2,7 @@ package com.social.ws.like;
 
 import com.social.ws.post.vm.PostVM;
 import com.social.ws.user.UserRepository;
+import com.social.ws.user.vm.UserVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import com.social.ws.post.Post;
 import com.social.ws.like.LikeService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/1.0/likes")
@@ -75,5 +77,21 @@ public class LikeController {
     public boolean checkLikeStatus(@RequestParam("postId") Long postId, @RequestParam("username") String username) {
         boolean isLiked = likeRepository.existsByPostIdAndUserUsername(postId, username);
         return isLiked;
+    }
+
+    @GetMapping("/{postId}/liked-users")
+    public ResponseEntity<List<UserVM>> getLikedUsersByPostId(@PathVariable Long postId) {
+        Post post = likeService.getPostById(postId);
+
+        if (post == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<Like> likes = post.getLikes();
+        List<UserVM> likedUsers = likes.stream()
+                .map(like -> new UserVM(like.getUser()))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(likedUsers);
     }
 }

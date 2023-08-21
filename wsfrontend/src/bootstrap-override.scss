@@ -29,11 +29,15 @@ $warning: #ffad1f;
   border: none;
   cursor: pointer;
   font-size: 16px;
+  transition: color 0.3s, transform 0.2s ease-in-out;
 }
 .btn-fav-link:hover {
+  transform: scale(1.05);
   color: $danger;
 }
 .btn-fav-link:active {
+  transform: scale(1.1); /* This will enlarge the button slightly */
+  transition: transform 0.2s ease-in-out;
   color: $danger;
 }
 .btn-retweet-link {
@@ -107,7 +111,6 @@ $warning: #ffad1f;
   background: none;
 }
 
-
 .btn-group {
   display: flex;
   justify-content: space-between;
@@ -130,4 +133,134 @@ $warning: #ffad1f;
 .tab-button.like-active {
   background-color: #dc3545;
   color: white;
+}
+
+.btn-update-link {
+  color: rgb(31, 24, 31);
+}
+.btn-update-link:hover {
+  color: $success;
+}
+// ProfileCard Butonları
+.btn-update-account {
+  color: #1f181f;
+  background-color: #b0b0b0; /* Açık gri */
+  border-radius: 25px;
+  padding: 5px 15px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+.btn-update-account:hover {
+  color: #1f181f; /* Aynı renk hover durumunda da korunur */
+  background-color: #848484; /* Daha koyu gri hover durumunda */
+  transform: scale(1.05);
+}
+
+/* Hesabı Sil Buton Stili */
+.btn-delete-account {
+  display: inline-block;
+  padding: 5px 15px;
+  background-color: #bc4033; /* Koyu kırmızı tonu */
+  color: white;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-delete-account:hover {
+  background-color: #d9534f; /* Daha koyu kırmızı tonu hover durumunda */
+  transform: scale(1.05); /* Hafif büyüme animasyonu */
+}
+
+.btn-verify-request {
+  display: inline-block;
+  padding: 5px 15px;
+  background-color: #007bff; /* Mavi tonu */
+  color: white;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-verify-request:hover {
+  background-color: #0056b3; /* Daha koyu mavi hover durumunda */
+  transform: scale(1.05); /* Hafif büyüme animasyonu */
+}
+
+// Kullanıcı takip buttonları
+
+/* Takip Et Buton Stili */
+.btn-follow {
+  display: inline-block;
+  padding: 5px 15px;
+  background-color: rgb(213, 210, 210); /* Beyaz arka plan */
+  color: black; /* Gri tonu */
+  border: 1px solid #6c757d; /* Kenarlık */
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s, color 0.3s;
+}
+
+.btn-follow:hover {
+  background-color: #f5f5f5; /* Daha açık gri hover durumunda */
+  color: #495057; /* Daha koyu gri hover durumunda */
+  transform: scale(1.05); /* Hafif büyüme animasyonu */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Hafif gölgelendirme */
+}
+
+/* Takibi Bırak Buton Stili */
+.btn-unfollow {
+  display: inline-block;
+  padding: 5px 15px;
+  background-color: white; /* Beyaz arka plan */
+  color: #af2b1c; /* Kırmızı tonu */
+  border: 1px solid #af2b1c; /* Kenarlık */
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s, color 0.3s;
+}
+
+.btn-unfollow:hover {
+  background-color: #edb4b4; /* Daha açık gri hover durumunda */
+  color: #d9534f; /* Açık kırmızı tonu hover durumunda */
+  transform: scale(1.05); /* Hafif büyüme animasyonu */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Hafif gölgelendirme */
+}
+
+/* Post At Buton Stili */
+.btn-post {
+  display: inline-block;
+  padding: 5px 15px;
+  background-color: #1da1f2;
+  color: black;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s, color 0.3s;
+}
+
+.btn-post:hover {
+  background-color: #1790cc;
+  transform: scale(1.05);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  /* Cancel Buton Stili */
+}
+.btn-cancel {
+  display: inline-block;
+  padding: 5px 15px;
+  background-color: #acb0b2;
+  color: black;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s, color 0.3s;
+}
+
+.btn-cancel:hover {
+  background-color: #acb0b2;
+  transform: scale(1.05);
 }

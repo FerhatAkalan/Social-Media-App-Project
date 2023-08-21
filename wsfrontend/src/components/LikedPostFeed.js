@@ -21,7 +21,7 @@ const LikedPostFeed = () => {
     };
     loadLikedPosts();
   }, [username,likedPosts]);
-
+//OnClickDeleteFonksiyonu yaz
   return (
     <div>
       {likedPosts.length === 0 ? (
