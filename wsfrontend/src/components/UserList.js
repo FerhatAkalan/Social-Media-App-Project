@@ -47,12 +47,12 @@ const UserList = () => {
       }}
     >
       {first === false && (
-        <button className="btn btn-primary" onClick={onClickPrevious}>
+        <button className="btn btn-post" onClick={onClickPrevious}>
           {t("Previous")}
         </button>
       )}
       {last === false && (
-        <button className="btn btn-secondary float-end" onClick={onClickNext}>
+        <button className="btn btn-cancel float-end" onClick={onClickNext}>
           {t("Next")}
         </button>
       )}

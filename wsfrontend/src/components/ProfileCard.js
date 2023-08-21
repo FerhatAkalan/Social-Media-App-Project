@@ -9,7 +9,8 @@ import {
   deleteUser,
   createVerificationRequest,
   getFollowing,
-  getFollowers,checkFollowStatusApi
+  getFollowers,
+  checkFollowStatusApi,
 } from "../api/apiCalls";
 import { useApiProgress } from "../shared/ApiProgress";
 import ButtonWithProgress from "../components/ButtonWithProgress";
@@ -266,6 +267,16 @@ const ProfileCard = (props) => {
             <div className="card">
               <div className="card-header">{t("Profile Settings")}</div>
               <div className="card-body p-2">
+                {loggedInUsername !== username && (
+                  <div className="mt-2">
+                    <FollowButton
+                      loggedInUsername={loggedInUsername}
+                      username={username}
+                      isFollowing={isFollowing}
+                      setIsFollowing={setIsFollowing}
+                    />
+                  </div>
+                )}
                 {(editable || isAdmin) && (
                   <>
                     {editable && (
@@ -277,16 +288,7 @@ const ProfileCard = (props) => {
                         {t("Edit")}
                       </button>
                     )}
-                    {loggedInUsername !== username && (
-                      <div className="mt-2">
-                        <FollowButton
-                          loggedInUsername={loggedInUsername}
-                          username={username}
-                          isFollowing={isFollowing}
-                          setIsFollowing={setIsFollowing}
-                        />
-                      </div>
-                    )}
+
                     <div className="pt-2">
                       <button
                         className="btn btn-delete-account d-inline-flex"
@@ -308,7 +310,7 @@ const ProfileCard = (props) => {
                       </div>
                     )}
                   </>
-                )}{" "}
+                )}
               </div>
             </div>
           </>
