@@ -18,8 +18,10 @@ $warning: #ffad1f;
   border: none;
   cursor: pointer;
   font-size: 16px;
+  transition: color 0.3s, transform 0.2s ease-in-out;
 }
 .btn-comment-link:hover {
+  transform: scale(1.05);
   color: $info;
 }
 .btn-fav-link {

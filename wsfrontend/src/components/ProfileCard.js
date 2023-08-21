@@ -251,7 +251,7 @@ const ProfileCard = (props) => {
                   </div>
                 </div>
                 <div className="col-6">
-                  <div className="card btn btn-fav-link">
+                  <div className="card btn btn-comment-link">
                     <div
                       className="card-body p-1"
                       style={{ cursor: "pointer" }}

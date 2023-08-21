@@ -148,8 +148,8 @@ const VerificationRequestsPage = () => {
                   {/* <th>{t("User ID")}</th> */}
                   <th>{t("Username")}</th>
                   <th>{t("Reason")}</th>
-                  <th>{t("Attachment")}</th>
                   <th>{t("Status")}</th>
+                  <th>{t("Attachment")}</th>
                   <th>{t("Actions")}</th>
                 </tr>
               </thead>
