@@ -76,34 +76,16 @@ const FollowingFeed = () => {
 
   return (
     <div>
-      {newPostCount > 0 && (
-        <div
-          className="alert alert-info text-center mb-1"
-          onClick={loadNewPostProgress ? () => {} : loadNewPosts}
-          style={{ cursor: loadNewPostProgress ? "wait" : "pointer" }}
-        >
-          <i class="fa-regular fa-paper-plane fa-beat-fade p-2"></i>
-          {loadNewPostProgress ? (
-            <Spinner />
-          ) : (
-            t("There are new posts. Click here to see!")
-          )}
-          <i class="fa-regular fa-paper-plane fa-beat-fade ps-2"></i>
+      {posts.length === 0 ? (
+        <div className="alert alert-primary text-center">
+          {t("There are no user posts followed yet.")}
         </div>
-      )}
-      {posts.map((post) => (
-        <div key={post.id} className="mb-">
-          <PostView post={post} onDeletePost={onDeletePostSuccess}></PostView>
-        </div>
-      ))}
-      {posts.length > 0 && !loadOldPostProgress && (
-        <div
-          className="alert alert-secondary text-center"
-          onClick={loadOldPostProgress ? () => {} : loadOldPosts}
-          style={{ cursor: loadOldPostProgress ? "wait" : "pointer" }}
-        >
-          {loadOldPostProgress ? <Spinner /> : t("Load old posts")}{" "}
-        </div>
+      ) : (
+        posts.map((post) => (
+          <div key={post.id} className="mb-">
+            <PostView post={post} onDeletePost={onDeletePostSuccess}></PostView>
+          </div>
+        ))
       )}
     </div>
   );
