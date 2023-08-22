@@ -447,7 +447,7 @@ const ProfileCard = (props) => {
         <Modal
           visible={followingListVisible}
           onClickCancel={() => setFollowingListVisible(false)}
-          title={t("Followed Users")}
+          title={"📙"+t("Followed Users")}
           showCloseButton={true}
           message={
             followingUsers.length > 0 ? (
@@ -471,7 +471,7 @@ const ProfileCard = (props) => {
         <Modal
           visible={followerListVisible}
           onClickCancel={() => setFollowerListVisible(false)}
-          title={t("Followers")}
+          title={"📘" + t("Followers")}
           showCloseButton={true}
           message={
             followerUsers.length > 0 ? (

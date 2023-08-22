@@ -244,7 +244,7 @@ const PostView = (props) => {
         <Modal
           visible={likeListVisible}
           onClickCancel={closeLikeList}
-          title={t("Liked By")}
+          title={"❤ "+t("Likes")+" ❤"}
           showCloseButton={true}
           message={
             <div className="card">
@@ -260,7 +260,7 @@ const PostView = (props) => {
         <Modal
           visible={likeListVisible}
           onClickCancel={closeLikeList}
-          title={t("Liked By")}
+          title={"❤ "+t("Likes")+" ❤"}
           showCloseButton={true}
           message={t("No liked posts yet.")}
         />

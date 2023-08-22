@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b5f4730e-452d-4cc7-9735-4a2c38475c53" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/.eslintcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/21.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/21.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/index.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/index.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/index.pack.old" beforeDir="false" afterPath="$PROJECT_DIR$/../wsfrontend/node_modules/.cache/default-development/index.pack.old" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

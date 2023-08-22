@@ -13,7 +13,7 @@ const Modal = (props) => {
 
   return (
     <div className={className} style={{ backgroundColor: '#000000b0' }}>
-      <div className="modal-dialog modal-dialog model-lg">
+      <div className="modal-dialog modal-dialog-centered model-lg">
         <div className="modal-content">
           <div className="modal-header">
             <h6 className="modal-title">{title}</h6>
