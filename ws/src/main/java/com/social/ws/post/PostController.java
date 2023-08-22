@@ -68,5 +68,21 @@ public class PostController {
         return new GenericResponse("Post removed");
     }
 
+    @GetMapping("/{username}/posts/{id:[0-9]+}/details")
+    public ResponseEntity<?> getPostDetails(@PathVariable long id, @PathVariable String username) {
+        try {
+            PostVM postDetails = postService.getPostDetails(id);
+            return ResponseEntity.ok(postDetails);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new GenericResponse("Error fetching post details"));
+        }
+    }
+
+    @GetMapping("/users/{username}/following/posts")
+    public ResponseEntity<List<PostVM>> getFollowingPosts(@PathVariable String username,
+                                                          @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable page) {
+        List<PostVM> followingPosts = postService.getFollowingPosts(username, page);
+        return ResponseEntity.ok(followingPosts);
+    }
 
 }

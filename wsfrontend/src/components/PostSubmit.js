@@ -80,7 +80,9 @@ const PostSubmit = () => {
   }
 
   return (
-    <div className="card p-2">
+    <div className="card p-2" style={{
+      borderRadius:"0px"
+    }}>
       <div className="d-flex flex-wrap align-items-start">
         <div className="col-2 col-md-1">
           <ProfileImageWithDefault

@@ -137,6 +137,31 @@ $warning: #ffad1f;
   color: white;
 }
 
+.tab2-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+}
+
+.tab2-button {
+  padding: 10px 20px;
+  border: none;
+  background-color: transparent;
+  color: #333;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.tab2-button.active {
+  background-color: #d8dce1;
+  color: black;
+  border-bottom: 2px solid #1da1f2;
+}
+
 .btn-update-link {
   color: rgb(31, 24, 31);
 }
@@ -266,3 +291,50 @@ $warning: #ffad1f;
   background-color: #acb0b2;
   transform: scale(1.05);
 }
+
+// .post-container {
+//   // background-color: #fff;
+//   // border: 1px solid #ddd;
+//   // border-radius: 8px;
+//   // padding: 15px;
+//   // margin-bottom: 20px;
+//   transition: background-color 0.3s, transform 0.2s;
+//   cursor: pointer;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hafif bir gölge ekliyoruz */
+// }
+
+// .post-container:hover {
+//   background-color: #f0f0f0;
+//   // transform: scale(1.05);
+// }
+
+// Post Style
+.post-container {
+  border-radius: 0px;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+  cursor: pointer; /* İmleci işaretçi olarak ayarlıyoruz */
+}
+
+.post-container:hover {
+  background-color: #f0f0f0; /* Gri renk */
+}
+// .post-container {
+//   background-color: #fff;
+//   border: 1px solid #ddd;
+//   border-radius: 8px;
+//   padding: 15px;
+//   margin-bottom: 20px;
+//   transition: background-color 0.3s, transform 0.2s;
+//   cursor: pointer;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hafif bir gölge ekliyoruz */
+// }
+
+// .post-container:hover {
+//   background-color: #f0f0f0;
+//   transform: scale(1.05);
+// }
+
+
+
+

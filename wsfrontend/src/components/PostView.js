@@ -17,6 +17,7 @@ import Modal from "../components/Modal";
 import VerifiedBadge from "./VerifiedBadge";
 import { likePost, unlikePost } from "../redux/authActions";
 import UserListItem from "./UserListItem";
+import { useHistory } from "react-router-dom";
 
 const PostView = (props) => {
   const loggedInUser = useSelector((store) => store.username);
@@ -96,9 +97,14 @@ const PostView = (props) => {
     setLikeListVisible(false);
     setLikedUsers([]); // Beğenen kişileri sıfırlayın
   };
+  const history = useHistory();
+
+  const handlePostDetailsClick = () => {
+    history.push(`/post-details/${id}`);
+  };
   return (
     <>
-      <div className="card p-1">
+      <div className="card p-1 post-container">
         <div className="d-flex">
           <Link to={`/users/${username}`}>
             <ProfileImageWithDefault
@@ -156,29 +162,39 @@ const PostView = (props) => {
             </ul>
           </div>
         </div>
-        <div className="px-5 py-2"> {content} </div>
-        {fileAttachment && (
-          <div className="ps-5">
-            {fileAttachment.fileType.startsWith("image") && (
-              <img
-                className="img-fluid img-thumbnail rounded"
-                style={{ maxWidth: "100%", maxHeight: "450px" }}
-                src={"images/attachment/" + fileAttachment.name}
-                alt={content}
-              />
-            )}
-            {!fileAttachment.fileType.startsWith("image") && (
-              <strong>
-                <em>Post has unkown attachment</em>
-              </strong>
-            )}
-          </div>
-        )}
+        <div onClick={handlePostDetailsClick}>
+          <div className="px-5 py-2"> {content} </div>
+          {fileAttachment && (
+            <div className="ps-5">
+              {fileAttachment.fileType.startsWith("image") && (
+                <img
+                  className="img-fluid img-thumbnail rounded"
+                  style={{ maxWidth: "100%", maxHeight: "450px" }}
+                  src={"images/attachment/" + fileAttachment.name}
+                  alt={content}
+                />
+              )}
+              {!fileAttachment.fileType.startsWith("image") && (
+                <strong>
+                  <em>{t("Post has unkown attachment")}</em>
+                </strong>
+              )}
+            </div>
+          )}
+        </div>
         <hr class="text-black-50 my-1" />
         <div className="d-flex justify-content-around pb-1 py-1">
-          <button className="btn btn-comment-link">
-            <i class="fa-regular fa-comment"></i>
-          </button>
+          <div onClick={handlePostDetailsClick}>
+            <button className="btn btn-comment-link">
+              <i class="fa-regular fa-comment"></i>
+            </button>
+            <span 
+              className="ms-1 btn btn-comment-link"
+              style={{ cursor: "pointer" }}
+            >
+              {likeCount} {t("Comment")}
+            </span>
+          </div>
           <button className="btn btn-retweet-link">
             <i class="fa-solid fa-retweet"></i>
           </button>

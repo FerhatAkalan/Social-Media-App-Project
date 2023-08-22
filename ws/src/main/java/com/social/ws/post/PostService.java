@@ -1,11 +1,15 @@
 package com.social.ws.post;
 
+import com.social.ws.error.NotFoundException;
 import com.social.ws.file.FileAttachment;
 import com.social.ws.file.FileAttachmentRepository;
 import com.social.ws.file.FileService;
 import com.social.ws.post.vm.PostSubmitVM;
+import com.social.ws.post.vm.PostVM;
 import com.social.ws.user.User;
+import com.social.ws.user.UserRepository;
 import com.social.ws.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,10 +19,12 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
 
+    private final UserRepository userRepository;
     PostRepository postRepository;
     UserService userService;
 
@@ -26,11 +32,12 @@ public class PostService {
 
     FileService fileService;
 
-    public PostService(PostRepository postRepository, UserService userService, FileAttachmentRepository fileAttachmentRepository, FileService fileService) {
+    public PostService(PostRepository postRepository, UserService userService, FileAttachmentRepository fileAttachmentRepository, FileService fileService, UserRepository userRepository) {
         this.postRepository = postRepository;
         this.userService = userService;
         this.fileAttachmentRepository = fileAttachmentRepository;
         this.fileService = fileService;
+        this.userRepository = userRepository;
     }
 
     public void save(PostSubmitVM postSubmitVM, User user) {
@@ -110,5 +117,26 @@ public class PostService {
         }
         postRepository.deleteById(id);
     }
+
+    public PostVM getPostDetails(long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException());
+        return new PostVM(post);
+    }
+
+    public List<PostVM> getFollowingPosts(String username, Pageable page) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new NotFoundException();
+        }
+
+        List<User> followingUsers = user.getFollowing();
+        List<Post> followingPosts = postRepository.findByUserInOrderByTimestampDesc(followingUsers, page);
+
+        return followingPosts.stream()
+                .map(PostVM::new)
+                .collect(Collectors.toList());
+    }
+
 
 }

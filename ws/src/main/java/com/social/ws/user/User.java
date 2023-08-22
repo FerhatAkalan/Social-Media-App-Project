@@ -64,7 +64,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Like> likes;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_follows",
             joinColumns = @JoinColumn(name = "follower_id"),
@@ -72,7 +72,7 @@ public class User implements UserDetails {
     )
     private List<User> following;  // Bu kullanıcının takip ettiği kullanıcılar
 
-    @ManyToMany(mappedBy = "following")
+    @ManyToMany(mappedBy = "following", fetch = FetchType.EAGER)
     private List<User> followers;  // Bu kullanıcıyı takip eden kullanıcılar
 
 

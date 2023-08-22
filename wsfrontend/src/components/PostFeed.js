@@ -79,7 +79,7 @@ const PostFeed = () => {
     }));
   };
 
-  const loadNewHoaxes = async () => {
+  const loadNewPosts = async () => {
     const response = await getNewPosts(firstPostId);
     setPostPage((previousPostPage) => ({
       ...previousPostPage,
@@ -110,7 +110,7 @@ const PostFeed = () => {
       {newPostCount > 0 && (
         <div
           className="alert alert-info text-center mb-1"
-          onClick={loadNewPostProgress ? () => {} : loadNewHoaxes}
+          onClick={loadNewPostProgress ? () => {} : loadNewPosts}
           style={{ cursor: loadNewPostProgress ? "wait" : "pointer" }}
         >
           <i class="fa-regular fa-paper-plane fa-beat-fade p-2"></i>

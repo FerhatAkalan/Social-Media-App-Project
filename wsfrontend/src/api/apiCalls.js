@@ -225,3 +225,13 @@ export const checkFollowStatusApi = (followerUsername, followedUsername) => {
     throw error;
   }
 };
+
+export const getPostDetails = (username,postId) => {
+  const response = axios.get(`/api/1.0/${username}/posts/${postId}/details`);
+  return response;
+};
+
+export const getFollowingPosts = (username,page = 0) => {
+  const response = axios.get(`/api/1.0/users/${username}/following/posts?page=${page}`);
+  return response;
+};

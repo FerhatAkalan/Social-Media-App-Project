@@ -8,6 +8,7 @@ import {HashRouter as Router, Route, Redirect,Switch} from "react-router-dom";
 import TopBar from "./TopBar";
 import { useSelector } from "react-redux";
 import VerificationRequestsPage from "../pages/VerificationRequestsPage";
+import PostViewDetailsPage from "../pages/PostViewDetailsPage";
 
 const App = () => {
   const { isLoggedIn,admin } = useSelector((store) => ({
@@ -27,6 +28,7 @@ const App = () => {
           {isLoggedIn && admin &&(
             <Route path="/verifications/applications" component={VerificationRequestsPage} />
           )}
+          <Route path="/post-details/:postId" component={PostViewDetailsPage} />
           <Redirect to="/" />
         </Switch>
         <div>
