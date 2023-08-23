@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +21,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -128,6 +126,12 @@ public class UserController {
     public ResponseEntity<?> checkFollowStatus(@PathVariable String followerUsername, @PathVariable String followedUsername) {
         boolean isFollowing = userService.isAlreadyFollowing(followerUsername, followedUsername);
         return ResponseEntity.ok(isFollowing);
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<UserVM> getUserByUsernameFromUserDAO(@PathVariable String username) {
+        UserVM user = userService.getByUsernameFromUserDAO(username);
+        return ResponseEntity.ok(user);
     }
 
 }

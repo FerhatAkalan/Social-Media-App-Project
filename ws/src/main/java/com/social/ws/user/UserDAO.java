@@ -1,30 +1,34 @@
 package com.social.ws.user;
 
 import com.social.ws.error.NotFoundException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
 
 @Repository
 public class UserDAO {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private final SessionFactory sessionFactory;
+
+    @Autowired
+    public UserDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     public User getByUsername(String username) {
-        String queryString = "SELECT u FROM User u WHERE u.username = :username";
+        try (Session session = sessionFactory.openSession()) {
+            String queryString = "FROM User WHERE username = :username";
 
-        User user = entityManager.createQuery(queryString, User.class)
-                .setParameter("username", username)
-                .getSingleResult();
+            User user = session.createQuery(queryString, User.class)
+                    .setParameter("username", username)
+                    .uniqueResult();
 
-        if (user == null) {
-            throw new NotFoundException();
+            if (user == null) {
+                throw new NotFoundException();
+            }
+
+            return user;
         }
-
-        return user;
     }
 }

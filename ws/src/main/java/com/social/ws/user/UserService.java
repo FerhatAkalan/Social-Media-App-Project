@@ -3,6 +3,7 @@ package com.social.ws.user;
 import com.social.ws.error.NotFoundException;
 import com.social.ws.file.FileService;
 import com.social.ws.user.vm.UserUpdateVM;
+import com.social.ws.user.vm.UserVM;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,13 @@ public class UserService {
     UserRepository userRepository;
     PasswordEncoder passwordEncoder;
     FileService fileService;
+    UserDAO userDAO;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, FileService fileService) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, FileService fileService, UserDAO userDAO) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.fileService = fileService;
+        this.userDAO = userDAO;
     }
 
     public void save(User user) {
@@ -113,6 +116,16 @@ public class UserService {
         } else {
             throw new NotFoundException();
         }
+    }
+
+    public UserVM getByUsernameFromUserDAO(String username) {
+        User user = userDAO.getByUsername(username);
+
+        if (user == null) {
+            throw new NotFoundException();
+        }
+
+        return new UserVM(user);
     }
 
 }

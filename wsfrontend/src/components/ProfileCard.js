@@ -435,7 +435,7 @@ const ProfileCard = (props) => {
                 role="alert"
               >
                 <div className="ms-auto">
-                  {t("Be Careful This is Admin")}
+                  {t("Admin")}
                   <i class="fa-regular fa-id-card m-1"></i>
                 </div>
               </div>

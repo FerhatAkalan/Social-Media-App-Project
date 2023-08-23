@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import Sidebar from "../components/Sidebar";
 import Spinner from "../components/Spinner";
 import { useTranslation } from "react-i18next";
+import ButtonWithProgress from "../components/ButtonWithProgress";
+import TrendList from "../components/TrendList";
 
 const PostViewDetails = () => {
   const { postId } = useParams();
@@ -29,7 +31,7 @@ const PostViewDetails = () => {
   if (!postDetails) {
     return (
       <div className="card my-2 text-center">
-        <div class="alert alert-primary d-inline-block m-2" role="alert">
+        <div className="alert alert-primary d-inline-block m-2" role="alert">
           <div>
             <Spinner />
           </div>
@@ -38,7 +40,21 @@ const PostViewDetails = () => {
       </div>
     );
   }
-
+  const trends = [
+    { text: "#Trend1", posts: 10 },
+    { text: "#Trend2", posts: 11 },
+    { text: "#Trend3", posts: 12 },
+    { text: "#Trend4", posts: 13 },
+    { text: "#Trend5", posts: 14 },
+    { text: "#Trend6", posts: 15 },
+    { text: "#Trend7", posts: 16 },
+    { text: "#Trend8", posts: 15 },
+    { text: "#Trend9", posts: 14 },
+    { text: "#Trend10", posts: 13 },
+    { text: "#Trend11", posts: 12 },
+    { text: "#Trend12", posts: 11 },
+    { text: "#Trend13", posts: 10 },
+  ];
   return (
     <div className="container mt-3 pb-1">
       <div className="row">
@@ -52,11 +68,21 @@ const PostViewDetails = () => {
               <textarea
                 className="form-control"
                 rows="4"
-                placeholder="Write a comment..."
+                placeholder={t("Write a comment...")}
               />
-              <button className="btn btn-primary mt-2">Submit Comment</button>
+              <div className="d-flex justify-content-end align-items-center pt-1">
+                <ButtonWithProgress
+                  className="btn btn-post m-1"
+                  text={t("Submit Comment")}
+                  icon="fa-regular fa-paper-plane me-1"
+                />
+              </div>
             </div>
           </div>
+        </div>
+        <div className="col-lg-2 col-md-5 mb-3">
+          {/* Trendler Sütunu */}
+          <TrendList trends={trends} t={t} />
         </div>
       </div>
     </div>

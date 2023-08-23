@@ -78,6 +78,7 @@ const FollowingFeed = () => {
     <div>
       {posts.length === 0 ? (
         <div className="alert alert-primary text-center">
+          <Spinner/>
           {t("There are no user posts followed yet.")}
         </div>
       ) : (
