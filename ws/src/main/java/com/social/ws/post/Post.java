@@ -2,6 +2,7 @@ package com.social.ws.post;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.social.ws.file.FileAttachment;
+import com.social.ws.hashtag.Hashtag;
 import com.social.ws.like.Like;
 import com.social.ws.user.User;
 import jakarta.persistence.*;
@@ -31,5 +32,12 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Like> likes;
 
-
+    @ManyToMany
+    @JoinTable(
+            name = "post_hashtags",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "hashtag_id")
+    )
+    @JsonManagedReference
+    private List<Hashtag> hashtags;
 }

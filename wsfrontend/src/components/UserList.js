@@ -62,7 +62,7 @@ const UserList = () => {
     actionDiv = <Spinner />;
   }
   return (
-    <div className="card">
+    <div className="card card-trend">
       <h3 className="card-header text-center">{t("Users")}</h3>
       <div className="list-group list-group-flush">
         {users.map((user) => (

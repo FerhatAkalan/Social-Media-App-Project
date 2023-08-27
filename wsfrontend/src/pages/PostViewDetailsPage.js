@@ -40,21 +40,7 @@ const PostViewDetails = () => {
       </div>
     );
   }
-  const trends = [
-    { text: "#Trend1", posts: 10 },
-    { text: "#Trend2", posts: 11 },
-    { text: "#Trend3", posts: 12 },
-    { text: "#Trend4", posts: 13 },
-    { text: "#Trend5", posts: 14 },
-    { text: "#Trend6", posts: 15 },
-    { text: "#Trend7", posts: 16 },
-    { text: "#Trend8", posts: 15 },
-    { text: "#Trend9", posts: 14 },
-    { text: "#Trend10", posts: 13 },
-    { text: "#Trend11", posts: 12 },
-    { text: "#Trend12", posts: 11 },
-    { text: "#Trend13", posts: 10 },
-  ];
+
   return (
     <div className="container mt-3 pb-1">
       <div className="row">
@@ -82,7 +68,7 @@ const PostViewDetails = () => {
         </div>
         <div className="col-lg-2 col-md-5 mb-3">
           {/* Trendler Sütunu */}
-          <TrendList trends={trends} t={t} />
+          <TrendList  t={t} />
         </div>
       </div>
     </div>

@@ -12,14 +12,15 @@ import VerifiedBadge from "../components/VerifiedBadge";
 const TopBar = (props) => {
   const { t } = useTranslation();
 
-  const { username, isLoggedIn, displayName, image,admin,verified } = useSelector((store) => ({
-    isLoggedIn: store.isLoggedIn,
-    username: store.username,
-    displayName: store.displayName,
-    image: store.image,
-    admin:store.admin,
-    verified: store.verified
-  }));
+  const { username, isLoggedIn, displayName, image, admin, verified } =
+    useSelector((store) => ({
+      isLoggedIn: store.isLoggedIn,
+      username: store.username,
+      displayName: store.displayName,
+      image: store.image,
+      admin: store.admin,
+      verified: store.verified,
+    }));
 
   const dispatch = useDispatch();
 
@@ -61,7 +62,8 @@ const TopBar = (props) => {
         <ul className="navbar-nav">
           <li className="nav-item">
             <Link className="nav-link d-flex" to="/">
-              <i className="material-icons text-secondary me-1">home</i>
+            <i class="fa-solid fa-home text-secondary me-1 my-auto"></i>
+              {/* <i className="material-icons text-secondary me-1">home</i> */}
               {t("Home Page")}
             </Link>
           </li>
@@ -79,7 +81,7 @@ const TopBar = (props) => {
                   className="rounded-circle me-1"
                 />
                 <span>{displayName}</span>
-                {verified && <VerifiedBadge isAdmin={admin}/>}
+                {verified && <VerifiedBadge isAdmin={admin} />}
               </Link>
             </div>
           </li>
@@ -91,7 +93,8 @@ const TopBar = (props) => {
           </li> */}
           <li className="nav-item" onClick={onLogoutSuccess}>
             <Link className="nav-link d-flex" to="/login">
-              <i className="material-icons text-secondary me-1">logout</i>
+              <i class="fa-solid fa-right-from-bracket text-secondary me-1 my-auto"></i>
+              {/* <i className="material-icons text-secondary me-1">logout</i> */}
               {t("Logout")}
             </Link>
           </li>
@@ -113,11 +116,10 @@ const TopBar = (props) => {
               Social Cafe{" "}
             </a>
           </Link>
-          
         </div>
         <em className="navbar-text ms-auto">
-            {t("Share your coffee, explore the world!")}
-          </em>
+          {t("Share your coffee, explore the world!")}
+        </em>
         {links}
       </nav>
     </div>

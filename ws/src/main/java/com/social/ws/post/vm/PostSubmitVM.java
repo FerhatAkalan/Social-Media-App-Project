@@ -3,6 +3,8 @@ package com.social.ws.post.vm;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class PostSubmitVM {
 
@@ -10,4 +12,6 @@ public class PostSubmitVM {
     private String content;
 
     private long attachmentId;
+    
+    private List<String> hashtags;
 }

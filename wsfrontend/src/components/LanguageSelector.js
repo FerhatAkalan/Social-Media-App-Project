@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import tr from "../assets/32_1.png"
+import en from "../assets/32.png"
+
 
 const LanguageSelector = () => {
   const { i18n } = useTranslation();
@@ -38,13 +41,13 @@ const LanguageSelector = () => {
     <div className="">
       <div className="d-flex flex-row-reverse">
         <img
-          src="https://flagsapi.com/US/flat/32.png"
+          src={en}
           alt="USA Flag"
           onClick={() => onChangeLanguage("en")}
           style={{ cursor: "pointer" }}
         />
         <img
-          src="https://flagsapi.com/TR/flat/32.png"
+          src={tr}
           alt="Turkish Flag"
           onClick={() => onChangeLanguage("tr")}
           style={{ cursor: "pointer" }}

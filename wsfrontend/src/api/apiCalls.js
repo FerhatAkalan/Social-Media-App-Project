@@ -235,3 +235,16 @@ export const getFollowingPosts = (username,page = 0) => {
   const response = axios.get(`/api/1.0/users/${username}/following/posts?page=${page}`);
   return response;
 };
+
+export const getTrends = () => {
+  return axios.get(`/api/1.0/hashtags/trends`);
+};
+
+export const getPostsByHashtag = async (hashtagName) => {
+  try {
+    const response = await axios.get(`/api/1.0/hashtags/${hashtagName}/posts`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

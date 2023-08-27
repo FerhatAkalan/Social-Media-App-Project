@@ -196,7 +196,7 @@ const VerificationRequestsPage = () => {
                           {t("View Attachment")}
                         </button>
                       ) : (
-                        <button className="btn btn-view">
+                        <button className="btn btn-view text-dark">
                           {t("No Attachment")}
                         </button>
                       )}

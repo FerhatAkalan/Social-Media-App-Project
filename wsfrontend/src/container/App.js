@@ -9,7 +9,8 @@ import TopBar from "./TopBar";
 import { useSelector } from "react-redux";
 import VerificationRequestsPage from "../pages/VerificationRequestsPage";
 import PostViewDetailsPage from "../pages/PostViewDetailsPage";
-
+import HashtagPage from "../pages/HashtagPage";
+import ExplorePage from "../pages/ExplorePage";
 const App = () => {
   const { isLoggedIn,admin } = useSelector((store) => ({
     isLoggedIn: store.isLoggedIn,
@@ -28,7 +29,9 @@ const App = () => {
           {isLoggedIn && admin &&(
             <Route path="/verifications/applications" component={VerificationRequestsPage} />
           )}
+          <Route path="/explore" component={ExplorePage} />
           <Route path="/post-details/:postId" component={PostViewDetailsPage} />
+          <Route path="/hashtags/:hashtagName/posts" component={HashtagPage} />
           <Redirect to="/" />
         </Switch>
         <div>

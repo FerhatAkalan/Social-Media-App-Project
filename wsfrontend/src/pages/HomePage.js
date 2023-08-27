@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import UserList from "../components/UserList";
 import PostSubmit from "../components/PostSubmit";
 import { useSelector } from "react-redux";
@@ -6,6 +6,8 @@ import PostFeed from "../components/PostFeed";
 import Sidebar from "../components/Sidebar";
 import { useTranslation } from "react-i18next";
 import FollowingFeed from "../components/FollowingFeed";
+import TrendList from "../components/TrendList";
+import { getTrends } from "../api/apiCalls";
 const HomePage = () => {
   const { isLoggedIn,username } = useSelector((store) => ({
     isLoggedIn: store.isLoggedIn,
@@ -21,7 +23,7 @@ const HomePage = () => {
   const loadFollowingFeed = () => {
     setActiveTab("FOLLOWING_FEED");
   };
-  
+ 
   return (
     <div className="container mt-3 pb-1">
       <div className="row">
@@ -56,6 +58,8 @@ const HomePage = () => {
           </div>
         </div>
         <div className="col-lg-3 col-md-3 mb-3">
+          <TrendList/>
+          <div style={{ marginBottom: '20px' }}></div>
           <UserList />
         </div>
       </div>

@@ -163,7 +163,7 @@ const PostView = (props) => {
           </div>
         </div>
         <div onClick={handlePostDetailsClick}>
-          <div className="px-5 py-2"> {content} </div>
+          <div className="px-5 py-2 pb-3"> {content} </div>
           {fileAttachment && (
             <div className="ps-5">
               {fileAttachment.fileType.startsWith("image") && (
@@ -183,7 +183,7 @@ const PostView = (props) => {
           )}
         </div>
         <hr class="text-black-50 my-1" />
-        <div className="d-flex justify-content-around pb-1 py-1">
+        <div className="d-flex justify-content-around pb-1 py-">
           <div onClick={handlePostDetailsClick}>
             <button className="btn btn-comment-link">
               <i class="fa-regular fa-comment"></i>
